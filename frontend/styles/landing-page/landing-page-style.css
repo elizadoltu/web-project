@@ -1,0 +1,32 @@
+.app-name {
+    font-family: 'Truecolor Personal Use Regular';
+    font-size: 10rem;
+    color: var(--font-color);
+}
+
+.app-name-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#official-logo {
+    fill: white;
+    width: 100px;
+    height: 100px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.official-logo {
+    color: white;
+    font-size: 200px;
+    margin-bottom: 80px;
+    margin-right: -40px;
+}

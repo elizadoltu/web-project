@@ -1,0 +1,8 @@
+body {
+    background-image: url('../frontend/images/png/background-image.png');
+    height: 100vh;
+    width: 100%;
+    background-size: 100%;
+    background-size: cover;
+    overflow: hidden;
+}
