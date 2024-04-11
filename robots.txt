@@ -1,0 +1,4 @@
+Disallow: /scripts/
+Disallow: /backend/
+Disallow: /images/
+Disallow: /pages/
