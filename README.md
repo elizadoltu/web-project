@@ -41,10 +41,10 @@
 
 - For every reference that we are going to use regarding making the project, 
 here is going to be links with the references/materials
-    > - [`https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt`](https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt)
-    > - [`https://fonts.google.com/?query=rale`](https://fonts.google.com/?query=rale)
-    > - [`https://fonts.google.com/icons`](https://fonts.google.com/icons)
-    > - [`https://validator.w3.org/`](https://validator.w3.org/)
-    > - [`https://validator.w3.org/`](https://validator.w3.org/)
+    > - [`How to create a robots.txt file`](https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt)
+    > - [`Google Fonts`](https://fonts.google.com/?query=rale)
+    > - [`Material Icons by Google`](https://fonts.google.com/icons)
+    > - [`HTML Validator`](https://validator.w3.org/)
+    > - [`CSS Validator`](https://validator.w3.org/)
     > - [`Notion Page - Frontend Materials`](https://outstanding-rest-134.notion.site/Front-End-Materials-603167cd5c984171b885aadc7eb90467?pvs=4)
     > - [`Truecolor Font`](https://www.cufonfonts.com/font/truecolor-personal-use)
