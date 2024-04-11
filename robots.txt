@@ -2,3 +2,6 @@ Disallow: /scripts/
 Disallow: /backend/
 Disallow: /images/
 Disallow: /pages/
+
+User-agent: Googlebot
+Disallow: /nogooglebot/

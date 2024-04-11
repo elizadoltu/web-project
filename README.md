@@ -13,8 +13,14 @@
 
 ## Strucure of the Repository
 
-- TODO
-  > Structure:
+- Struture
+  > Design: The UX/UI of the Flavorfolio
+  > frontend: Where the fonts, images, pages and styles are uploaded for the App
+  > scripts: Mainly the Javascript files to control the flow of the frontend (animations, changes of the pages)
+  > backend: Where the implementations of the things behind the App are
+  > index.html: The main page
+  > LICENSE: Copyright
+  > robots.txt: To tell a sepcific user agent to not crawl a particular path or directory on our website
 
 ## Description of the project
 
