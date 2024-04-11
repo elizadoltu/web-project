@@ -1,0 +1,87 @@
+input[type=text], input[type=password] {
+    width: 35em;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid var(--font-color);
+    background-color: transparent; 
+    color: var(--font-color); 
+    font-size: 1.5em;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+.form-container {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+}
+
+.form-sign-up input {
+  margin-bottom: 40px;
+}
+
+.burger-sign-up {
+  position: absolute;
+  width: 65em;
+  top: -30%;
+  left: -15%;
+}
+
+.continue-button {
+  font-size: 1.2em;
+  padding: 15px 30px;
+  width: 250px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--font-color);
+  border-radius: 15px;
+  margin-bottom: 10px;
+  border-color: var(--font-color);
+  background: none;
+  cursor: pointer;
+}
+
+.terms-container {
+  font-family: 'Raleway';
+  font-size: 1.5em;
+  color: var(--font-color);
+}
+
+#create-an-account {
+  position: absolute;
+  color: var(--font-color);
+  font-family: 'Raleway', sans-serif;
+  left: 53%;
+  top: 10%;
+  font-size: 3.5em;
+}
+
+#login-welcome-back {
+  position: absolute;
+  color: var(--font-color);
+  font-family: 'Raleway', sans-serif;
+  left: 45%;
+  top: 10%;
+  font-size: 3.5em;
+}
+
+
+#arrow-nav-back {
+  position: absolute;
+  left: 3%;
+  top: 3%;
+  color: #FFFFFF;
+  font-size: 3.5em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#welcome-back-boss {
+  position: absolute;
+  color: var(--font-color);
+  font-family: 'Raleway', sans-serif;
+  left: 50%;
+  top: 10%;
+  font-size: 3.5em;
+}
