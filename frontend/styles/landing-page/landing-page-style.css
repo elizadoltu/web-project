@@ -1,32 +1,51 @@
 .app-name {
-    font-family: 'Truecolor Personal Use Regular';
-    font-size: 10rem;
+    font-family: 'Truecolor Personal Use Regular', sans-serif; 
+    font-size: 6em;
     color: var(--font-color);
-}
-
-.app-name-logo-container {
+  }
+  
+  .app-name-logo-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#official-logo {
-    fill: white;
-    width: 100px;
-    height: 100px;
-}
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
-}
-
-.official-logo {
+    position: absolute;
+    top: 15%;
+    left: 18%;
+    transform: translate(-50%, -50%);
+    animation: slideInLeft 1s ease-in-out forwards;
+    transition: all 2s ease-in-out;  
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+  }
+  
+  #official-logo {
     color: white;
-    font-size: 200px;
-    margin-bottom: 80px;
-    margin-right: -40px;
-}
+    font-size: 8em;
+    margin-top: 50px;
+    margin-right: -20px;
+  }
+  
+  .main-app-container {
+    width: 100vh;
+    height: 100vh;
+  }
+  
+  @keyframes slideInLeft {
+    from { 
+      transform: translate(-60%, -50%);
+      opacity: 0; 
+    }
+    to { 
+      transform: translate(-50%, -50%);
+      opacity: 1; 
+    }
+  }
+
+
+
+  
+  

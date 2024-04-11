@@ -1,0 +1,62 @@
+.buttons-container-landing button {
+    display: block;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    width: 250px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--font-color);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border-color: var(--font-color);
+    background: none;
+    cursor: pointer;
+  }
+  
+  .welcome-container {
+    position: absolute; 
+    font-family: 'Raleway', sans-serif;
+    color: var(--font-color);
+    top: 30%;
+    left: 5%; 
+  }
+  
+  #welcome-title {
+    font-size: 4em;
+  }
+  
+  #welcome-descr {
+    font-size: 1.5em;
+    font-weight: 200;
+    margin-top: -30px;
+  }
+  
+  .buttons-container-landing {
+    margin-top: 55%; 
+    margin-left: 10%;
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  #sign-up-button {
+    background: var(--font-color);
+    color: var(--background-color);
+  }
+
+  .welcome-container, 
+.buttons-container-landing {  
+    opacity: 0; 
+    transform: translateX(-20px); 
+    animation: slideInUp 0.5s ease-in-out forwards; 
+}
+  
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+.landing-image {
+    position: absolute;
+    left: 70%;
+    top: -10%;
+}
+  
