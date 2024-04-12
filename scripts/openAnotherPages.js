@@ -12,6 +12,15 @@ window.addEventListener('DOMContentLoaded', function() {
     logInAsAdminButton.addEventListener('click', function() {
       window.location.href = "/frontend/pages/loginAdminPage.html";
     })
+    
   
   });
   
+const adminButton = document.getElementById('admin-continue-button');
+
+adminButton.addEventListener('click', function(event) {
+  event.preventDefault(); 
+    window.location.href = '/frontend/pages/adminPage.html'; 
+});
+  
+
