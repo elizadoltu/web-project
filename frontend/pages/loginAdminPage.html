@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/frontend/styles/custom-variables.css">
     <link rel="stylesheet" href="/frontend/styles/sign-up/sign-up-style.css">
     <link rel="stylesheet" href="/frontend/styles/import-fonts.css">
+    <link rel="stylesheet" href="/frontend/styles/admin-page/admin-page-style.css">
+
     <title>Login</title>
 </head>
 <body>
@@ -18,13 +20,23 @@
           
                 <input type="password" id="password" name="password" placeholder="Password">
             <br>
-                <button class="continue-button" type="submit">Continue</button>
+            <button id="admin-continue-button" type="submit">Continue</button>
+                
             </form>
         </div>
         <div id="arrow-nav-back">&#8592;</div>
         <h2 id="welcome-back-boss">Welcome back, boss👋.</h2>
         <img class="burger-sign-up" src="/frontend/images/png/burger-register.png" alt="burger image">
     </section>
-    <script src="/frontend/styles/sign-up/scripts/navBack.js"></script>
-</body>
+    <script src="/scripts/navBack.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const adminButton = document.getElementById('admin-continue-button');
+            adminButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = '/frontend/pages/adminPage.html';
+            });
+        });
+    </script>
+    </body>
 </html>

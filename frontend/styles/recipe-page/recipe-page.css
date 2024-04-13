@@ -1,0 +1,127 @@
+#recipe-body-page {
+    height: auto;
+}
+
+#recipe-button {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    color: #FFFFFF;
+    font-size: 3.5em;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+.recipe-page-image {
+    position: absolute;
+    right: 10%;
+    top: 25%;
+}
+
+#recipe-body-page {
+    overflow-y: scroll;
+}
+
+.recipe-title-container {
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    width: 48em;
+    font-size: 1.8em;
+    margin-top: 8%;
+    margin-left: 8%;
+}
+
+.recipe-preparation-container {
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    width: 48em;
+    font-size: 1.5em;
+    margin-top: 5%;
+    margin-left: 8%;
+}
+
+.recipe-description {
+    font-weight: 300;
+}
+
+.nutritions-details-container {
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    margin-left: 8%;
+    margin-top: 4%;
+}
+
+.nutritions-details-container h2 {
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    font-size: 2em;
+}
+
+.calories-container, 
+.carbo-container,
+.protein-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--font-color);
+    width: 10em;
+    padding: 0px 30px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+#valoric-number {
+    font-size: 1.5em;
+    font-weight: 800;
+    border: 1px solid var(--font-color);
+    width: 1.8em;
+    display: flex;
+    justify-content: center;
+    height: min-content;
+    padding: 0px 20px;
+    border-radius: 15px;
+    margin-right: 1em;
+    margin-left: -20px;
+}
+
+.ingredients-container {
+    font-family: 'Raleway', sans-serif;
+    color: var(--font-color);
+    margin-left: 8%;
+    margin-top: 3%;
+    font-size: 1.5em;
+}
+
+.list-of-ingredients p {
+    font-size: 0.8em;
+    margin-bottom: -10px;
+}
+
+#button-container {
+    margin-left: 8%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+#add-to-cart-button {
+    background-color: rgba(217, 219, 222, 0.2) ;
+    color: var(--font-color);
+}
+
+#save-button {
+    color: #0C0C0C;
+}
+
+#add-to-cart-button,
+#save-button {
+    border: none;
+    font-size: 2em;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid var(--font-color);
+    border-radius: 20px;
+    margin-right: 2%;
+}
