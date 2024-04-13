@@ -11,7 +11,6 @@ window.addEventListener('DOMContentLoaded', function() {
     });
     logInAsAdminButton.addEventListener('click', function() {
       window.location.href = "/frontend/pages/loginAdminPage.html";
-<<<<<<< HEAD
     });
     
   });
@@ -35,18 +34,3 @@ const adminButton = document.getElementById('admin-continue-button');
         event.preventDefault();
         window.location.href = '/frontend/pages/adminPage.html';
 });
-=======
-    })
-    
-  
-  });
-  
-const adminButton = document.getElementById('admin-continue-button');
-
-adminButton.addEventListener('click', function(event) {
-  event.preventDefault(); 
-    window.location.href = '/frontend/pages/adminPage.html'; 
-});
-  
-
->>>>>>> 8e06b159ea8aacbe61d31c61b4ec96a35fa3e5cf
