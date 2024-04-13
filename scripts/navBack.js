@@ -4,3 +4,4 @@ window.addEventListener('DOMContentLoaded', function() {
         window.location.href = "/index.html";
     });
 });
+
