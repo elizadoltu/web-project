@@ -1,5 +1,5 @@
 # WEB TECHNOLOGIES UAIC - CuPO (Culinary Preferences Organizer)
-- [`Favorfolio Official Website`](https://flavorfolio.netlify.app/)
+- [`Flavorfolio Official Website`](https://flavorfolio.netlify.app/)
 
 ## Commands to add files in your git repository
 
