@@ -33,5 +33,14 @@
         <img class="burger-sign-up" src="/frontend/images/png/burger-register.png" alt="burger image">
     </section>
     <script src="/scripts/navBack.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const adminButton = document.getElementById('continue-button-register');
+            adminButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = '/frontend/pages/configUserPage.html';
+            });
+        });
+    </script>
 </body>
 </html>
