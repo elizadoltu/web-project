@@ -1,87 +1,164 @@
 input[type=text], input[type=password] {
-    width: 35em;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 2px solid var(--font-color);
-    background-color: transparent; 
-    color: var(--font-color); 
-    font-size: 1.5em;
-    font-family: 'Raleway', sans-serif;
-  }
-  
+  width: 35em;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid var(--font-color);
+  background-color: transparent; 
+  color: var(--font-color); 
+  font-size: 1.5em;
+  font-family: 'Raleway', sans-serif;
+}
+
 .form-container {
-  position: absolute;
-  top: 35%;
-  left: 45%;
+position: absolute;
+top: 35%;
+left: 45%;
 }
 
 .form-sign-up input {
-  margin-bottom: 40px;
+margin-bottom: 40px;
 }
 
 .burger-sign-up {
-  position: absolute;
-  width: 65em;
-  top: -30%;
-  left: -15%;
+position: absolute;
+width: 65em;
+top: -30%;
+left: -15%;
 }
 
 .continue-button {
-  font-size: 1.2em;
-  padding: 15px 30px;
-  width: 250px;
-  text-align: center;
-  font-weight: 700;
-  color: var(--font-color);
-  border-radius: 15px;
-  margin-bottom: 10px;
-  border-color: var(--font-color);
-  background: none;
-  cursor: pointer;
+font-size: 1.2em;
+padding: 15px 30px;
+width: 250px;
+text-align: center;
+font-weight: 700;
+color: var(--font-color);
+border-radius: 15px;
+margin-bottom: 10px;
+border-color: var(--font-color);
+background: none;
+cursor: pointer;
 }
 
 .terms-container {
-  font-family: 'Raleway';
-  font-size: 1.5em;
-  color: var(--font-color);
+font-family: 'Raleway';
+font-size: 1.5em;
+color: var(--font-color);
 }
 
 #create-an-account {
-  position: absolute;
-  color: var(--font-color);
-  font-family: 'Raleway', sans-serif;
-  left: 53%;
-  top: 10%;
-  font-size: 3.5em;
+position: absolute;
+color: var(--font-color);
+font-family: 'Raleway', sans-serif;
+left: 53%;
+top: 10%;
+font-size: 3.5em;
 }
 
 #login-welcome-back {
-  position: absolute;
-  color: var(--font-color);
-  font-family: 'Raleway', sans-serif;
-  left: 45%;
-  top: 10%;
-  font-size: 3.5em;
+position: absolute;
+color: var(--font-color);
+font-family: 'Raleway', sans-serif;
+left: 45%;
+top: 10%;
+font-size: 3.5em;
 }
 
 
 #arrow-nav-back {
-  position: absolute;
-  left: 3%;
-  top: 3%;
-  color: #FFFFFF;
-  font-size: 3.5em;
-  cursor: pointer;
-  z-index: 2;
+position: absolute;
+left: 3%;
+top: 3%;
+color: #FFFFFF;
+font-size: 3.5em;
+cursor: pointer;
+z-index: 2;
 }
 
 #welcome-back-boss {
-  position: absolute;
-  color: var(--font-color);
-  font-family: 'Raleway', sans-serif;
-  left: 50%;
-  top: 10%;
-  font-size: 3.5em;
+position: absolute;
+color: var(--font-color);
+font-family: 'Raleway', sans-serif;
+left: 50%;
+top: 10%;
+font-size: 3.5em;
+}
+
+#main-section-register {
+color: var(--font-color);
+font-family: 'Raleway', sans-serif;
+}
+
+#hey-username {
+font-size: 3.5rem;
+margin-top: 6%;
+margin-left: 8%;
+}
+
+#options-allergies-container {
+margin-left: 8%;
+margin-top: 3%;
+}
+
+#more-info-container {
+font-size: 1.8rem;
+}
+
+#buttons-container {
+margin-top: 2%;
+}
+
+#buttons-container button {
+font-size: 1.5em;
+width: 12rem;
+font-family: 'Raleway', sans-serif;
+padding: 15px 30px;
+border: 1px solid var(--font-color);
+font-weight: 700;
+border-radius: 15px;
+margin-right: 15px;
+cursor: pointer;
+}
+
+#buttons-main-container {
+margin-top: 4%;
+}
+
+.transparent-button {
+color: var(--font-color);
+background-color: rgba(217, 219, 222, 0.2);
+}
+
+.white-button {
+background-color: var(--font-color);
+color: var(--background-color);
+}
+
+#other-pref {
+color: var(--font-color);
+margin-top: 3%;
+margin-left: 8%;
+}
+
+#continue-and-submit-button {
+font-size: 1.5em;
+width: 12rem;
+font-family: 'Raleway', sans-serif;
+padding: 15px 30px;
+border: 1px solid var(--font-color);
+font-weight: 700;
+border-radius: 15px;
+margin-right: 15px;
+cursor: pointer;
+margin-left: 8%;
+margin-top: 2%;
+}
+
+#image-choose-pref {
+position: absolute;
+top: -25%;
+right: -15%;
+width: 50%;
 }

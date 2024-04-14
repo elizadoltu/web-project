@@ -1,0 +1,105 @@
+#body-about-page {
+    overflow-y: scroll;
+}
+
+.app-name-logo-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+}
+
+#official-logo {
+    color: white;
+    font-size: 8em;
+}
+
+.about-app-container {
+    width: 100vh;
+    height: 100vh;
+}
+
+#arrow-nav-back-about {
+    color: #FFFFFF;
+    font-size: 3.5em;
+    cursor: pointer;
+    z-index: 2;
+}
+
+
+#about-title {
+    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-size: 3em;
+    color: var(--font-color);
+    font-weight: 50;
+    margin-left: 20px; 
+}
+
+#horizontal-line-1 {
+    width: 50%;
+    height: 1px;
+    top: 20%;
+    left: 0%;
+    position: absolute;
+    background-color: var(--font-color);
+}
+
+#paragraph-1 {
+    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-size: 1.5em; /* Adjust the font size as needed */
+    color: var(--font-color); /* Match the color to the title */
+    font-weight: 50;
+    
+}
+
+.about-section {
+    top: 50%; /* Adjust as needed */
+    left: 0; /* Set it to 0 to align with the left edge of its containing block */
+    transform: translateY(-130%); /* Use transform to center vertically */
+    position: absolute;
+    width: 100%;
+}
+
+#horizontal-line-2 {
+    width: 50%;
+    height: 1px;
+    top: 50%;
+    left: 0%;
+    position: absolute;
+    background-color: var(--font-color);
+}
+
+.contact-section {
+    margin-top: 20px; /* Adjust margin as needed */
+    top:60%;
+    position:absolute;
+}
+
+.contact-section h2 {
+    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-size: 2em;
+    color: var(--font-color);
+    font-weight: 50;
+}
+
+.contact-section p {
+    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-size: 1.2em;
+    color: var(--font-color);
+    font-weight: 50;
+    margin: 10px 0;
+}
+
+.fruits-about{
+    position:absolute;
+    top: 40%;
+    left: 60%;
+  }

@@ -1,0 +1,100 @@
+#my-cart-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    color: var(--font-color);
+    font-size: 2em;
+    z-index: 1;
+}
+
+#my-cart-button-user {
+    display: flex;
+    margin-left: 85%;
+}
+
+#icon-menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(217, 219, 222, 0.2);
+    border-radius: 20px;
+    padding: 12px; 
+    position: fixed; 
+    bottom: 20px;
+    color: var(--font-color); 
+    border: 1px solid var(--font-color);
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 22em; 
+}
+
+#icon-menu span {
+    cursor: pointer; 
+    font-size: 2.5em;
+    color: var(--font-color);
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+}
+
+#cart-icon-user {
+    font-size: 1.5em;
+}
+
+#profile-info-container {
+    display: flex;
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    align-items: center;
+    margin-left: 8%;
+    margin-top: 5%;
+}
+
+#profile-info {
+    margin-left: 40px;
+}
+
+#horizontal-line {
+    margin-top: 2%;
+    margin-left: 8%;
+    width: 300px;
+    height: 1px;
+    background-color: var(--font-color);
+}
+
+#options-menu {
+    font-family: 'Raleway', sans-serif;
+    color: var(--font-color);
+    margin-top: 3%;
+    margin-left: 8%;
+    font-size: 1.5em;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+}
+
+#arrow-button {
+    margin-left: 10px;
+    margin-bottom: 15px;
+    transform: rotate(-45deg);
+}
+
+#photo-fries {
+    position: absolute;
+    top: -3%;
+    right: -5%;
+}
+
+#logout-button {
+    color: var(--font-color);
+    text-decoration: none;
+}

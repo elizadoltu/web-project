@@ -27,7 +27,7 @@
     height: 100vh;
 }
 
-#arrow-nav-back {
+#arrow-nav-back-options {
     color: #FFFFFF;
     font-size: 3.5em;
     cursor: pointer;
@@ -203,7 +203,7 @@
   }
 
 .options-info #options-statistics{
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: 50;
     margin-top: 20px;
     margin-left: 20px;
@@ -247,3 +247,4 @@
     left: 40%;
     transform: translate(50%, -50%);
 }
+

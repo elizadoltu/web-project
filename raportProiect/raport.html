@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--Validated through w3.org-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavorfolio : A recipes and shopping companion</title>
+    <link rel="stylesheet" href="reportstyle.css" />
+    
+</head>
+
+<body>
+    <header>
+        <h1>Application Requirements Specification for Culinary Preferences : Flavorfolio</h1>
+        <div role="contentinfo">
+            <h2>Authors:</h2>
+            <ul>
+                <li>
+                    <strong>Name: </strong>Onceriu Raul-Cosmin<br>
+                    <strong>Affiliation: </strong><a href="https://www.info.uaic.ro/">University "Alexandru Ioan Cuza",
+                        Department of Computer Science</a><br>
+                    <strong>Email: </strong><a href="mailto:onceriu_raul@tahoo.com">onceriu_raul@yahoo.com</a>
+                </li>
+                <li>
+                    <strong>Name: </strong>Doltu Teodora-Eliza<br>
+                    <strong>Affiliation: </strong><a href="https://www.info.uaic.ro/">University "Alexandru Ioan Cuza",
+                        Department of Computer Science</a><br>
+                    <strong>Email: </strong><a href="mailto:elizadoltuofficial@gmail.com">elizadoltuofficial@gmail.com</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section>
+        <h2>1. Introduction</h2>
+        <article id="project-scope">
+            <h3>1.1 Purpose</h3>
+            <p> Our web application aims to aid users with their to day lives when it comes to cooking
+                and planning their weekly meals.
+           
+        </article>
+        <article id = "product-scope">
+            <h3>1.2 Scope</h3>
+            <p>The application will provide users with a list of recipes based on their
+                preferences and will also generate a shopping list based on the recipes they choose. Also, it will
+                 provide users with the possibility to save their favorite recipes and to create a list of ingredients
+                they need for their recipes. The application will also provide users with the possibility to create an
+                account and to log in to their account in order to save their preferences and recipes.
+            </p>
+            <p>
+                The application allows users to search for recipes based on the ingredients
+                and popularity of the recipes. The application will also provide users with the possibility to filter the
+                recipes based on the type of meal they want to cook, whether that's a breakfast , lunch or dinner.
+            </p>
+        </article>
+        <article id="References">
+            <h3>1.3 References</h3>
+            <ul>
+                <li><a href="https://developers.google.com/search/docs/crawling-indexing/robots/create-robots-txt">How to create a robots.txt file</a></li>
+                <li><a href="https://fonts.google.com/?query=rale">Google fonts</a></li>
+                <li><a href="https://fonts.google.com/icons">Icons by Google</a></li>
+                <li><a href="https://outstanding-rest-134.notion.site/Front-End-Materials-603167cd5c984171b885aadc7eb90467?pvs=4">Frontend Materials</a></li>
+            </ul> 
+        </article>
+    </section>
+    <section>
+        <h2>2. Overall Description</h2>
+        <article id="product-perspective">
+            <h3>2.1 Product Perspective</h3>
+            <p>This platform is designed as a time saver for its users. It serves as a helper with the daily meal planning
+                and shopping, providing personalized recommendations based on user preferences and project goals. The
+                platform is intended to be user-friendly, accessible, and responsive across various devices. 
+            </p>
+        </article>
+        <article id="product-functions">
+            <h3>2.2 Product Functions</h3>
+            <ul>
+                <li>Recipe saver</li>
+                <li>Recommandation based on popularity</li>
+                <li>Ingredients saver</li>
+                <li>Customizable User Profile</li>
+            </ul>
+        </article>
+        <article id="user-classes">
+            <h3>2.3 User Classes and Characteristics</h3>
+            <p>Different user classes are: <strong>Authenticated Users</strong>, who have access to basic functionalities
+                enlisted above , who enjoy
+                personalized
+                recommendations tailored to their User Profile and
+                <strong>Administrators</strong>,
+                who moderate the application by banning and unbanning users.
+            </p>
+            <p>Each class has different functionalities.</p>
+        </article>
+        <article id="operating-environment">
+            <h3>2.4 Operating Environment</h3>
+            <p>The software is designed to operate in a web-based environment, utilizing technologies such as Node.js
+                for the backend and HTML, CSS, and JavaScript for the frontend. 
+            </p>
+        </article>
+        <article id="assumptions-and-dependencies">
+            <h3>2.5 Assumptions and Dependencies</h3>
+            <p>Key assumptions include the accessibility to a
+                MySQL database for the resources and various user preferences.
+                
+            </p>
+        </article>
+    </section>
+    <section>
+        <h2>3. External Interface Requirements</h2>
+        <article id="user-interface">
+            <h3>3.1 User Interface</h3>
+            <p>The platform will feature a simple, responsive web design, compatible with various devices and screen
+                sizes (no screen layout constraints). The UI will be intuitive and user-friendly, with a focus on
+                accessibility and ease of use. The design will be clean and modern, with a color scheme that is easy on
+                the eyes. 
+            </p>
+            <div class="flex-container">
+                <img src="ui_sketch.jpg" alt="UI made by pen basic sketch" class="image">
+                <span class="image-title">Basic sketch of the UI</span>
+            </div>
+        </article>
+        <article id="hardware-interfaces">
+            <h3>3.2 Hardware Interfaces</h3>
+            <p>As a web-based application, there are no specific hardware interface requirements. The platform is
+                accessible and performant on any standard device.
+            </p>
+        </article>
+        <article id="software-interfaces">
+            <h3>3.3 Software Interfaces</h3>
+            <p> The backend
+                database will be MySQL and will store various information regarding recipes, user data and preferences.
+            </p>
+        </article>
+    </section>
+    <section>
+        <h2>4. System Features and Requirements</h2>
+        <article id="personalized-recommendations">
+            <h3>4.1 Personalized Recommendations</h3>
+            <p>Based on dietary restrictions and allergies, users will only view recipes that are suitable for their
+                needs. The platform will also provide recommendations based on popularity of recipes. 
+            </p>
+        </article>
+        <article id="resource-management">
+            <h3>4.2 Requiring certain statistics</h3>
+            <p>Authenticated users have the ability to request certain statistics sent to their email adress having
+                one of the following options:
+            </p>
+            <ul>
+                <li>Weekly spent</li>
+                <li>BMI calculator</li>
+                <li>Most popular recipes</li>
+                
+            </ul>
+        </article>
+        <article id="profile-management">
+            <h3>4.3 User Preferences and Profile Management</h3>
+            <p>Users can manage their profiles, including personal information, dietary restrictions, and allergies.
+                Preferences can be updated at any time, and the platform will adjust recommendations accordingly.
+            </p>
+        </article>
+        <article id="administrator-capabilities">
+            <h3>4.4 Administrator Capabilities</h3>
+            <p>Administrators have access to a list of users and can perform the following actions:
+            </p>
+            <ul>
+                <li>Ban</li>
+                <li>Unban</li>
+                
+            </ul>
+            <p>This way, the management is kept at a minimal level, yet an efficient one.</p>
+        </article>
+    </section>
+    <section>
+        <h2>5. Other Nonfunctional Requirements</h2>
+        <article id="   performance-requirements">
+            <h3>5.1 Performance Requirements</h3>
+            <p>The platform should be responsive and performant, with fast loading times and minimal downtime. The
+                backend should be optimized for speed and efficiency, ensuring a smooth user experience.
+            </p>
+        </article>
+        <article id="security-requirements">
+            <h3>5.2 Security Requirements</h3>
+            <p>The platform should be secure, with user data encrypted and protected. The backend should be secure
+                against SQL injection and other common vulnerabilities. User authentication should be robust and
+                reliable.
+            </p>
+    </section>
+   
+    <footer>
+        <p>&copy; 2024 Flavorfolio 2E1 Team. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
