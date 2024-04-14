@@ -54,9 +54,10 @@
 
 #paragraph-1 {
     font-family: 'Truecolor Personal Use Regular', sans-serif;
-    font-size: 1.5em; /* Adjust the font size as needed */
-    color: var(--font-color); /* Match the color to the title */
+    font-size: 1.5em; 
+    color: var(--font-color); 
     font-weight: 50;
+    
     
 }
 
