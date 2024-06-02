@@ -49,3 +49,9 @@ here is going to be links with the references/materials
     > - [`CSS Validator`](https://validator.w3.org/)
     > - [`Notion Page - Frontend Materials`](https://outstanding-rest-134.notion.site/Front-End-Materials-603167cd5c984171b885aadc7eb90467?pvs=4)
     > - [`Truecolor Font`](https://www.cufonfonts.com/font/truecolor-personal-use)
+
+##Commands to see the project in function
+- npm install
+- npm run dev > to start the server
+- npm run create-database > to create the database
+- npm run test > to run all the available tests
