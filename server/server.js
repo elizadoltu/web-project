@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
-const getAllUsers = require("./apis/getAllUsers"); // Import the getAllUsers function
+const getAllUsers = require("./apis/getAllUsers"); 
 
 const hostname = "localhost";
 const port = 3000;
