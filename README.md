@@ -52,6 +52,6 @@ here is going to be links with the references/materials
 
 ##Commands to see the project in function
 - npm install
-- npm run dev > to start the server
-- npm run create-database > to create the database
-- npm run test > to run all the available tests
+- npm run dev [`to start the server`]
+- npm run create-database [`to create the database`]
+- npm run test [`to run all the available tests`]
