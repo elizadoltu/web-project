@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-
 const db = new sqlite3.Database('server/data/database.db');
+const barcodesData = require('./json/barcodes.json');
+const receipesData = require('./json/recepies.json');
 
 const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
@@ -11,44 +12,46 @@ const createUsersTable = `
     )
 `;
 
-const createBarCodesTable = `
+const createBarcodesTable = `
     CREATE TABLE IF NOT EXISTS barcodes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         barcode INTEGER UNIQUE,
         productName TEXT NOT NULL UNIQUE
     )
-`
+`;
+
+const createReceipeTable = `
+    CREATE TABLE IS NOT EXISTS receipes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        calories INTEGER,
+        protein REAL, 
+        fat REAL,
+        carbs REAL,
+        description TEXT NOT NULL,
+        ingredients TEXT NOT NULL,
+        preparation TEXT NOT NULL
+    )
+`;
 
 const insertUsers = [
-    'INSERT INTO users (username, email, password) VALUES ("user1", "user1@example.com", "password1")',
-    'INSERT INTO users (username, email, password) VALUES ("user2", "user2@example.com", "password2")',
-    'INSERT INTO users (username, email, password) VALUES ("user3", "user3@example.com", "password3")'
+    {
+        username: 'user1',
+        email: 'user1@example.com',
+        password: 'password1'
+    },
+    {
+        username: 'user2',
+        email: 'user2@example.com',
+        password: 'password2'
+    },
+    {
+        username: 'user3',
+        email: 'user3@example.com',
+        password: 'password3'
+    }
 ];
 
-const insertProducts = [
-    'INSERT INTO barcodes (barcode, productName) VALUES (4056489186267, "Green Apples")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20588885, "Cheese")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20119690, "Sliced Pork Ham")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (4056489100553, "Pinneaple")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (5411188112709, "Almond Milk")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (4056489166221, "Chicken Breast")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20357146, "Butter")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (4056489018636, "Flatbread")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20012540, "Bacon")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20790530, "Salad")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20242145, "Cherry Tomatoes")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (5942218001118, "Orange Juice")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20130596, "Berries")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20436322, "Nuts Mix")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20306274, "Potatoes")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20053970, "Rice")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20724696, "Almonds")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (5941300001104, "Flour")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (80135463, "Nutella")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (8004690611500, "Whole wheat spaghetti")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (4056489195917, "Oat")',
-    'INSERT INTO barcodes (barcode, productName) VALUES (20241681, "Oranges")'
-]
 
 db.serialize(() => {
     db.run(createUsersTable, (err) => {
@@ -59,8 +62,10 @@ db.serialize(() => {
         }
     });
 
-    insertUsers.forEach(sql => {
-        db.run(sql, (err) => {
+    insertUsers.forEach(user => {
+        const { username, email, password } = user;
+        const sql = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
+        db.run(sql, [username, email, password], (err) => {
             if (err) {
                 console.error('Error inserting user:', err.message);
             } else {
@@ -69,23 +74,60 @@ db.serialize(() => {
         });
     });
 
-    db.run(createBarCodesTable, (err) => {
+    db.run('DROP TABLE IF EXISTS barcodes', (err) => {
         if (err) {
-            console.error('Error creating barcodes table: ', err.message);
+            console.error('Error dropping barcodes table:', err.message);
+        } else {
+            console.log('Barcodes table dropped successfully');
+        }
+    });
+
+    db.run(createBarcodesTable, (err) => {
+        if (err) {
+            console.error('Error creating barcodes table:', err.message);
         } else {
             console.log('Barcodes table created successfully');
         }
     });
 
-    insertProducts.forEach(sql => {
-        db.run(sql, (err) => {
+    barcodesData.forEach(product => {
+        const { barcode, productName } = product;
+        const sql = `INSERT INTO barcodes (barcode, productName) VALUES (?, ?)`;
+        db.run(sql, [barcode, productName], (err) => {
             if (err) {
-                console.error('Error inserting products: ', err.message);
+                console.error('Error inserting product:', err.message);
             } else {
-                console.log('Products inserted successfully');
+                console.log(`Product ${productName} with barcode ${barcode} inserted successfully`);
             }
         });
     });
-});
 
-db.close();
+    db.run('DROP TABLE IF EXISTS recipes', (err) => {
+        if (err) {
+            console.error("Error dropping recipes table:", err.message);
+        } else {
+            console.log('Recipes table created successfully');
+        }
+    })
+
+    receipesData.forEach(recipe => {
+        const { name, calories, protein, fat, carbs, description, ingredients, preparation } = recipe;
+        const sql = `INSERT INTO recipes (name, calories, protein, fat, carbs, description, ingredients, preparation)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        db.run(sql, [name, calories, protein, fat, carbs, description, ingredients, preparation], (err) => {
+            if (err) {
+                console.error('Error inserting recipe:', err.message);
+            } else {
+                console.log(`Recipe ${name} inserted successfully`);
+            }
+        });
+    });
+
+    db.close((err) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        console.log('Database connection closed');
+    });
+});
