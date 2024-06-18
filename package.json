@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "dev": "node server/server.js",
     "create-database": "node server/data/initialize-database.js",
-    "test": "node tests/api.test.js && node tests/database.test.js"
+    "test": "node tests/allTests.js"
   },
   "keywords": [],
   "author": "Eliza - Teodora Doltu & Raul - Cosmin Onceriu",

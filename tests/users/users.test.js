@@ -37,6 +37,7 @@ function runTests() {
         } else {
             if (Array.isArray(users)) {
                 console.log('Test passed: API returned users');
+                console.log(users);
             } else {
                 console.error('Test failed: API did not return users');
             }
@@ -44,4 +45,4 @@ function runTests() {
     });
 }
 
-runTests();
+module.exports = { runTests };

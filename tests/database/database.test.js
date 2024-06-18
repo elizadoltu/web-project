@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function testQueryUsers() {
+function runTests() {
     const db = new sqlite3.Database('server/data/database.db');
 
     db.all('SELECT * FROM users', (err, rows) => {
@@ -17,4 +17,5 @@ function testQueryUsers() {
     });
 }
 
-testQueryUsers();
+module.exports = { runTests };
+
