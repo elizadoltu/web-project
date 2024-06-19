@@ -8,20 +8,17 @@
     <link rel="stylesheet" href="/frontend/styles/sign-up/sign-up-style.css">
     <link rel="stylesheet" href="/frontend/styles/import-fonts.css">
     <link rel="stylesheet" href="/frontend/styles/admin-page/admin-page-style.css">
-
     <title>Login</title>
 </head>
 <body>
     <section>
         <div class="form-container">
-            <form class="form-sign-up">
-                <input type="text" id="email" name="email" placeholder="Admin ID">
-            <br>
-          
-                <input type="password" id="password" name="password" placeholder="Password">
-            <br>
-            <button id="admin-continue-button" type="submit">Continue</button>
-                
+            <form class="form-sign-up" id="admin-login-form">
+                <input type="text" id="email" name="email" placeholder="Admin ID" required>
+                <br>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <br>
+                <button id="admin-continue-button" type="submit">Continue</button>
             </form>
         </div>
         <div id="arrow-nav-back">&#8592;</div>
@@ -30,13 +27,27 @@
     </section>
     <script src="/scripts/navBack.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            const adminButton = document.getElementById('admin-continue-button');
-            adminButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.href = '/frontend/pages/adminPage.html';
-            });
+        document.getElementById('admin-login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/api/loginAdmin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Admin login successful') {
+                    window.location.href = '/frontend/pages/adminPage.html'; // Redirect to the admin page
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         });
     </script>
-    </body>
+</body>
 </html>

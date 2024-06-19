@@ -13,6 +13,7 @@
   "author": "Eliza - Teodora Doltu & Raul - Cosmin Onceriu",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "sqlite3": "^5.1.7"
   }
 }
