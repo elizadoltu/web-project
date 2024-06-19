@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 
 function getRecipeByName(recipeName) {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database('server/data/database.db');
+        const db = new sqlite3.Database('./data/database.db');
 
         db.get('SELECT * FROM recipes WHERE name = ?', [recipeName], (err, row) => {
             if (err) {

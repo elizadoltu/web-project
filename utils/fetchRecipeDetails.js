@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const recipeName = urlParams.get("name");
 
     if (recipeName) {
-        fetch(`/api/recipe?name=${recipeName}`)
+        fetch(`http://localhost:3002/api/recipe?name=${recipeName}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById("recipe-title").textContent = data.name;
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function addToCartAPIRequest(ingredients) {
-    fetch("/api/addToCart", {
+    fetch("http://localhost:3002/api/addToCart", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

@@ -1,7 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('server/data/database.db');
 const barcodesData = require('./json/barcodes.json');
-const receipesData = require('./json/recepies.json');
 
 const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
@@ -9,14 +8,6 @@ const createUsersTable = `
         username TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL
-    )
-`;
-
-const createCartTable = `
-    CREATE TABLE IF NOT EXISTS cart (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        ingredient TEXT,
-        quantity INTEGER
     )
 `;
 
@@ -28,20 +19,6 @@ const createBarcodesTable = `
     )
 `;
 
-const createReceipeTable = `
-    CREATE TABLE IF NOT EXISTS recipes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        calories INTEGER,
-        protein REAL, 
-        fat REAL,
-        carbs REAL,
-        description TEXT NOT NULL,
-        ingredients TEXT NOT NULL,
-        preparation TEXT,
-        category TEXT
-    )
-`;
 
 const insertUsers = [
     {
@@ -91,14 +68,6 @@ db.serialize(() => {
         }
     });
 
-    db.run(createCartTable, (err) => {
-        if (err) {
-            console.error('Error creating cart table:', err.message);
-        } else {
-            console.log('Cart table created successfully');
-        }
-    });
-
     db.run('DROP TABLE IF EXISTS barcodes', (err) => {
         if (err) {
             console.error('Error dropping barcodes table:', err.message);
@@ -135,27 +104,6 @@ db.serialize(() => {
         }
     })
 
-    db.run(createReceipeTable, (err) => {
-        if (err) {
-            console.error('Error creating the receipes table:', err.message);
-        } else {
-            console.log('The recipes table created successfully');
-        }
-    });
-
-    receipesData.forEach(recipe => {
-        const { name, calories, protein, fat, carbs, description, ingredients, preparation, category } = recipe;
-        const sql = `INSERT INTO recipes (name, calories, protein, fat, carbs, description, ingredients, preparation, category)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-        db.run(sql, [name, calories, protein, fat, carbs, description, JSON.stringify(ingredients), preparation, category], (err) => {
-            if (err) {
-                console.error('Error inserting recipe:', err.message);
-            } else {
-                console.log(`Recipe ${name} inserted successfully`);
-            }
-        });
-    });
 
     db.close((err) => {
         if (err) {
