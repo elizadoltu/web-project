@@ -21,7 +21,7 @@ const createBarcodesTable = `
 `;
 
 const createReceipeTable = `
-    CREATE TABLE IS NOT EXISTS receipes (
+    CREATE TABLE IF NOT EXISTS recipes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         calories INTEGER,
@@ -30,7 +30,8 @@ const createReceipeTable = `
         carbs REAL,
         description TEXT NOT NULL,
         ingredients TEXT NOT NULL,
-        preparation TEXT NOT NULL
+        preparation TEXT,
+        category TEXT
     )
 `;
 
@@ -106,16 +107,24 @@ db.serialize(() => {
         if (err) {
             console.error("Error dropping recipes table:", err.message);
         } else {
-            console.log('Recipes table created successfully');
+            console.log('Recipes table was dropped');
         }
     })
 
-    receipesData.forEach(recipe => {
-        const { name, calories, protein, fat, carbs, description, ingredients, preparation } = recipe;
-        const sql = `INSERT INTO recipes (name, calories, protein, fat, carbs, description, ingredients, preparation)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    db.run(createReceipeTable, (err) => {
+        if (err) {
+            console.error('Error creating the receipes table:', err.message);
+        } else {
+            console.log('The recipes table created successfully');
+        }
+    });
 
-        db.run(sql, [name, calories, protein, fat, carbs, description, ingredients, preparation], (err) => {
+    receipesData.forEach(recipe => {
+        const { name, calories, protein, fat, carbs, description, ingredients, preparation, category } = recipe;
+        const sql = `INSERT INTO recipes (name, calories, protein, fat, carbs, description, ingredients, preparation, category)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        db.run(sql, [name, calories, protein, fat, carbs, description, JSON.stringify(ingredients), preparation, category], (err) => {
             if (err) {
                 console.error('Error inserting recipe:', err.message);
             } else {

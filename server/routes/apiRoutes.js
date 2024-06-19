@@ -1,9 +1,20 @@
 const getAllUsers = require("../apis/getAllUsers");
 const getProductByBarcode = require("../apis/getProductByBarcode");
 const getAllBarcodes = require("../apis/getAllBarcodes");
+const getRecipeByName = require("../apis/getRecipe");
 
 const apiRoutes = {
-    "/api/users": getAllUsers,
+    "/api/users": (req, res) => {
+        getAllUsers()
+            .then(users => {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(users));
+            })
+            .catch(error => {
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ error: error.message }));
+            });
+    },
     "/api/products": (req, res) => {
         const url = new URL(req.url, `http://${req.headers.host}`);
         const params = new URLSearchParams(url.search);
@@ -25,7 +36,38 @@ const apiRoutes = {
                 res.end(JSON.stringify({ error: error.message }));
             });
     },
-    "/api/getBarcodes": getAllBarcodes,  
+    "/api/getBarcodes": (req, res) => {
+        getAllBarcodes()
+            .then(barcodes => {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(barcodes));
+            })
+            .catch(error => {
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ error: error.message }));
+            });
+    },
+    "/api/recipe": (req, res) => {
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const params = new URLSearchParams(url.search);
+        const recipeName = params.get('name');
+
+        if (!recipeName) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Recipe name parameter is required" }));
+            return;
+        }
+
+        getRecipeByName(recipeName)
+            .then(recipe => {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(recipe));
+            })
+            .catch(error => {
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ error: error.message }));
+            });
+    }
 };
 
 function handleApiRoutes(req, res) {

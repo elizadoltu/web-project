@@ -60,7 +60,8 @@
 
 .calories-container, 
 .carbo-container,
-.protein-container {
+.protein-container,
+.fat-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
