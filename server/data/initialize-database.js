@@ -12,6 +12,14 @@ const createUsersTable = `
     )
 `;
 
+const createCartTable = `
+    CREATE TABLE IF NOT EXISTS cart (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ingredient TEXT,
+        quantity INTEGER
+    )
+`;
+
 const createBarcodesTable = `
     CREATE TABLE IF NOT EXISTS barcodes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,6 +81,22 @@ db.serialize(() => {
                 console.log('User inserted successfully');
             }
         });
+    });
+
+    db.run('DROP TABLE IF EXISTS cart', (err) => {
+        if (err) {
+            console.error('Error dropping cart table: ', err.message);
+        } else {
+            console.log('Cart table dropped successfully');
+        }
+    });
+
+    db.run(createCartTable, (err) => {
+        if (err) {
+            console.error('Error creating cart table:', err.message);
+        } else {
+            console.log('Cart table created successfully');
+        }
     });
 
     db.run('DROP TABLE IF EXISTS barcodes', (err) => {
