@@ -19,61 +19,109 @@
   </head>
   <body id="user-page-body">
     <div id="my-cart-button-user">
-      <a href="/frontend/pages/myCartPage.html" id="my-cart-button"
-        ><span class="material-symbols-outlined" id="cart-icon-user"> shopping_cart </span>
-        <p>My Cart</p></a
-      >
+      <a href="/frontend/pages/myCartPage.html" id="my-cart-button">
+        <span class="material-symbols-outlined" id="cart-icon-user">shopping_cart</span>
+        <p>My Cart</p>
+      </a>
     </div>
     <div id="icon-menu">
-        <a href="/frontend/pages/foryouPage.html">
-          <span class="material-symbols-outlined" id="icon-home">home</span></a
-        >
-        <a href="/frontend/pages/searchPage.html">
-          <span class="material-symbols-outlined" id="icon-search"
-            >search</span
-          ></a
-        >
-        <a href="/frontend/pages/preferencePage.html">
-          <span class="material-symbols-outlined" id="icon-favorite"
-            >favorite</span
-          ></a
-        >
-
-        <a href="/frontend/pages/userPage.html">
-          <span class="material-symbols-outlined" id="icon-person"
-            >person</span
-          ></a
-        >
+      <a href="/frontend/pages/foryouPage.html">
+        <span class="material-symbols-outlined" id="icon-home">home</span>
+      </a>
+      <a href="/frontend/pages/searchPage.html">
+        <span class="material-symbols-outlined" id="icon-search">search</span>
+      </a>
+      <a href="/frontend/pages/preferencePage.html">
+        <span class="material-symbols-outlined" id="icon-favorite">favorite</span>
+      </a>
+      <a href="/frontend/pages/userPage.html">
+        <span class="material-symbols-outlined" id="icon-person">person</span>
+      </a>
+    </div>
+    <div id="profile-info-container">
+      <img id="profile-photo" src="/frontend/images/png/profile-photo.png" alt="profile picture">
+      <div id="profile-info">
+        <h2 id="username">Loading...</h2>
+        <p id="email">Loading...</p>
       </div>
-      <div id="profile-info-container">        
-        <img id="profile-photo" src="/frontend/images/png/profile-photo.png" alt="profile picture">
-        <div id="profile-info">
-            <h2>elizadoltu</h2>
-            <p>elizadoltuofficial@gmail.com</p>
-        </div>
-        
+    </div>
+    <div id="horizontal-line"></div>
+    <div id="options-menu">
+      <div class="option-item">
+        <a href="/frontend/pages/options.html" id="options-button">
+          <h3>Options</h3>
+        </a>
+        <span class="material-symbols-outlined" id="arrow-button">arrow_forward</span>
       </div>
-      <div id="horizontal-line"></div>
-      <div id="options-menu">
-        <div class="option-item">
-           <a href = "/frontend/pages/options.html" id="logout-button"><h3>Options</h3> </a>
-            <span class="material-symbols-outlined" id="arrow-button">
-                arrow_forward
-                </span>
-        </div>
-        <div class="option-item">
-          <a href ="/frontend/pages/aboutPage.html" id="logout-button"> <h3>About Flavorfolio</h3></a>
-            <span class="material-symbols-outlined" id="arrow-button">
-                arrow_forward
-                </span>
-        </div>
-        <div class="option-item">
-            <a href="/index.html" id="logout-button"><h3>Logout</h3></a>
-            <span class="material-symbols-outlined" id="arrow-button">
-                arrow_forward
-                </span>
-        </div>
+      <div class="option-item">
+        <a href="/frontend/pages/aboutPage.html" id="about-button">
+          <h3>About Flavorfolio</h3>
+        </a>
+        <span class="material-symbols-outlined" id="arrow-button">arrow_forward</span>
+      </div>
+      <div class="option-item">
+        <a href="#" id="logout-button">
+          <h3>Logout</h3>
+        </a>
+        <span class="material-symbols-outlined" id="arrow-button">arrow_forward</span>
+      </div>
     </div>
     <img src="/frontend/images/png/fries-user-page.png" alt="photo with food" id="photo-fries">
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        function getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(';');
+          for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+        }
+
+        const email = getCookie('rememberedEmail');
+        if (email) {
+          document.getElementById('email').textContent = email;
+
+          fetch(`/api/getUserInfo?email=${encodeURIComponent(email)}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.username) {
+              document.getElementById('username').textContent = data.username;
+            } else {
+              document.getElementById('username').textContent = 'User not found';
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('username').textContent = 'Error loading user';
+          });
+        } else {
+          document.getElementById('username').textContent = 'No email found';
+          document.getElementById('email').textContent = 'No email found';
+        }
+
+        document.getElementById('logout-button').addEventListener('click', function(event) {
+          event.preventDefault(); // Prevent the default anchor behavior
+
+          function deleteCookie(name) {
+            document.cookie = name + '=; Max-Age=0; path=/;'; // Set the cookie expiration to the past
+          }
+
+          // Delete the rememberedEmail cookie
+          deleteCookie('rememberedEmail');
+
+          // Redirect to index.html
+          window.location.href = '/index.html';
+        });
+      });
+    </script>
   </body>
 </html>

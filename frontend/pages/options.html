@@ -35,19 +35,14 @@
             <label for="new-password" id="options-password">Password</label>
             <input type="password" id="new-password" placeholder="New Password" />
         </div>
-
-        <div id="options-vegetarian">Vegetarian</div>
+        <button id="update-button" type="button" class="submit-button">Submit</button>
         <button class="vegetarian-button">Vegetarian</button>
-        <div id="options-vegan">Vegan</div>
         <button class="vegan-button">Vegan</button>
 
         <div id="options-allergies">Allergies</div>
-        <button class="allergies-button">Show all allergies</button>
+        <div id="user-allergies"></div> <!-- Container to display allergies -->
 
-        <div id="options-statistics">Statistics</div>
         <button class="statistics-button">Send statistics</button>
-
-        <button id="update-button" type="button" class="submit-button">Submit</button>
       </div>
       <img class="platou-options" src="/frontend/images/png/platou.png" alt="platou image">
     </div>
@@ -65,6 +60,38 @@
           }
           return null;
       }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          const email = getCookie('rememberedEmail');
+          if (email) {
+              fetch(`/api/getUserAllergies?email=${encodeURIComponent(email)}`, {
+                  method: 'GET',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.allergies) {
+                      const allergiesContainer = document.getElementById('user-allergies');
+                      allergiesContainer.innerHTML = ''; // Clear existing content
+
+                      data.allergies.forEach(allergy => {
+                          const allergyItem = document.createElement('div');
+                          allergyItem.textContent = allergy;
+                          allergiesContainer.appendChild(allergyItem);
+                      });
+                  } else {
+                      console.error('Error fetching allergies:', data.error);
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+              });
+          } else {
+              console.error('No rememberedEmail cookie found');
+          }
+      });
 
       document.getElementById('update-button').addEventListener('click', function() {
           const email = getCookie('rememberedEmail'); // cookie created when logging in or when creating account
