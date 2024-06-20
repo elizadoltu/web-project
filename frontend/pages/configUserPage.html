@@ -68,7 +68,31 @@
                 document.getElementById('hey-username').textContent = `Hey, ${username}!`;
             }
 
+            const buttons = document.querySelectorAll('#buttons-container button');
             const continueButton = document.getElementById('continue-and-submit-button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const allergy = this.textContent;
+                    const email = getCookie('rememberedEmail'); 
+
+                    fetch('/api/addUserAllergy', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, allergy })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+
             continueButton.addEventListener('click', function(event) {
                 event.preventDefault();
                 window.location.href = '/frontend/pages/foryouPage.html';
