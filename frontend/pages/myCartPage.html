@@ -14,7 +14,6 @@
     .scrollable-container {
       max-height: 600px; 
       overflow-y: auto;
-      border: 1px solid #ccc;
       padding: 10px;
       margin-top: 10px;
     }
@@ -25,24 +24,51 @@
     .item-container:last-child {
       border-bottom: none;
     }
+    .receipt-item {
+      display: block;
+      width: 20%;
+      padding: 10px;
+      margin: 5px 0;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.2em;
+      color: var(--font-color);
+      background-color: #f8f8f8;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 90px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .receipt-item:hover {
+      background-color: var(--font-color);
+      color: #fff;
+    }
+    .new-cart-form {
+      margin-bottom: 20px;
+      margin-left: 90px;
+    }
+    .new-cart-form input {
+      padding: 10px;
+      font-size: 1.2em;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .new-cart-form button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      color: #fff;
+      background-color: var(--font-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .new-cart-form button:hover {
+      background-color: darken(var(--font-color), 10%);
+    }
   </style>
 </head>
 <body id="my-cart-body-page">
-  <div class="receipts-container">
-    <h2>Receipts</h2>
-    <div class="receipt-list" id="receipt-list">
-      <!-- Receipts will be populated dynamically -->
-    </div>
-  </div>
-  <h2 id="items-title">Items</h2>
-  <div id="items-list-container" class="scrollable-container">
-    <!-- Ingredients will be populated dynamically -->
-  </div>
-  <div class="info-generate-price-cart">
-    <button id="generate-receipt">Generate receipt</button>
-    <p id="total-price">Total: 300$</p>
-  </div>
-  <div id="vertical-line"></div>
   <div class="back-container">
     <div id="arrow-nav-back-cart">&#8592;</div>
     <div class="my-cart-container">
@@ -52,7 +78,26 @@
       </a>
     </div>
   </div>
+  <div class="receipts-container">
+    <h2 class="receipts-title">Receipts</h2>
+    <form id="new-cart-form" class="new-cart-form">
+      <input type="text" id="new-cart-name" placeholder="Enter new cart name" required />
+      <button type="submit">Add Cart</button>
+    </form>
+    <div class="receipt-list" id="receipt-list">
+      <!-- Receipts will be populated dynamically -->
+    </div>
+  </div>
+  <h2 id="items-title">Items</h2>
+  <div id="items-list-container" class="scrollable-container">
+    <!-- Ingredients will be populated dynamically -->
+  </div>
+  <div id="vertical-line"></div>
+  <div class="info-generate-price-cart">
+    <button id="generate-receipt">Generate receipt</button>
+  </div>
   <img src="/frontend/images/png/pasta-cart.png" alt="pasta" class="pasta-image-cart" />
   <script src="/utils/myCart.js"></script>
+  
 </body>
 </html>

@@ -60,11 +60,6 @@ const insertUsers = [
     { username: 'user3', email: 'user3@example.com', password: 'password3' }
 ];
 
-const insertCartItems = [
-    { ingredient: 'Tomato', quantity: 2, name: 'Cart A' },
-    { ingredient: 'Onion', quantity: 3, name: 'Cart B' },
-    { ingredient: 'Garlic', quantity: 1, name: 'Cart A' }
-];
 
 db.serialize(() => {
     db.run(createUsersTable, err => {
@@ -87,13 +82,6 @@ db.serialize(() => {
         if (err) console.error('Error creating cart table:', err.message);
     });
 
-    insertCartItems.forEach(item => {
-        const { ingredient, quantity, name } = item;
-        const sql = `INSERT INTO cart (ingredient, quantity, name) VALUES (?, ?, ?)`;
-        db.run(sql, [ingredient, quantity, name], err => {
-            if (err) console.error('Error inserting cart item:', err.message);
-        });
-    });
 
     db.run('DROP TABLE IF EXISTS barcodes', err => {
         if (err) console.error('Error dropping barcodes table:', err.message);
