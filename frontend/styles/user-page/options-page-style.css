@@ -81,8 +81,10 @@
     font-size: 1em;
 }
 
-.options-info button {
-    display: block;
+.options-info button, #options-allergies {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 10px;
     padding: 8px;
     font-size: 1em;
@@ -92,6 +94,8 @@
     color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center; /* Center text horizontally */
+    height: 40px; /* Adjust height as needed */
 }
 
 .options-info button:hover {

@@ -2,12 +2,22 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('server/data/database.db');
 const barcodesData = require('./json/barcodes.json');
 
+/*db.run('DROP TABLE IF EXISTS cart', (err) => {
+   if (err) {
+      console.error('Error dropping cart table: ', err.message);
+    } else {
+        console.log('Cart table dropped successfully');
+    }
+});*/
+
 const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        vegan BOOLEAN NOT NULL DEFAULT FALSE,
+        vegetarian BOOLEAN NOT NULL DEFAULT FALSE
     )
 `;
 
@@ -31,17 +41,23 @@ const insertUsers = [
     {
         username: 'user1',
         email: 'user1@example.com',
-        password: 'password1'
+        password: 'password1',
+        vegan: false,
+        vegetarian: true
     },
     {
         username: 'user2',
         email: 'user2@example.com',
-        password: 'password2'
+        password: 'password2',
+        vegan: true,
+        vegetarian: false
     },
     {
         username: 'user3',
         email: 'user3@example.com',
-        password: 'password3'
+        password: 'password3',
+        vegan: false,
+        vegetarian: false
     }
 ];
 
@@ -63,9 +79,9 @@ db.serialize(() => {
     });
 
     insertUsers.forEach(user => {
-        const { username, email, password } = user;
-        const sql = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
-        db.run(sql, [username, email, password], (err) => {
+        const { username, email, password, vegan, vegetarian } = user;
+        const sql = `INSERT INTO users (username, email, password, vegan, vegetarian) VALUES (?, ?, ?, ?, ?)`;
+        db.run(sql, [username, email, password, vegan, vegetarian], (err) => {
             if (err) {
                 console.error('Error inserting user:', err.message);
             } else {
