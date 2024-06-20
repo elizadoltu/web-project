@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function addNewCart(cartName) {
+function addNewCart(cartName, email) {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database('./data/database.db');
 
@@ -13,11 +13,11 @@ function addNewCart(cartName) {
             if (row) {
                 reject(new Error('Receipt already exists'));
             } else {
-                db.run('INSERT INTO cart (name) VALUES (?)', [cartName], function(err) {
+                db.run('INSERT INTO cart (name, email) VALUES (?, ?)', [cartName, email], function(err) {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve({ id: this.lastID, name: cartName });
+                        resolve({ id: this.lastID, name: cartName, email: email });
                     }
                 });
             }

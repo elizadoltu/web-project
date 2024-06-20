@@ -1,15 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchAvailableReceipts();
+  const email = getCookie('rememberedEmail');
 
   document.getElementById("new-cart-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const newCartName = document.getElementById("new-cart-name").value.trim();
     if (newCartName) {
-      addNewCart(newCartName);
+      addNewCart(newCartName, email); // Pass email parameter here
       document.getElementById("new-cart-name").value = "";
     }
   });
 });
+
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+function addNewCart(cartName, email) {
+  fetch("http://localhost:3002/api/addReceipt", {
+    method: "PUT",  // or "POST" depending on server expectation
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cartName: cartName, email: email })  // Include email parameter
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Cart added successfully:", data);
+    fetchAvailableReceipts();
+  })
+  .catch((error) => {
+    console.error("Error adding new cart:", error);
+  });
+}
 
 function fetchAvailableReceipts() {
   fetch("http://localhost:3002/api/receipts")
@@ -77,27 +112,4 @@ function displayReceiptDetails(receiptId) {
     .catch((error) => {
       console.error("Error fetching receipt details:", error);
     });
-}
-
-function addNewCart(cartName) {
-  fetch("http://localhost:3002/api/addReceipt", {
-    method: "PUT",  // or "POST" depending on server expectation
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ cartName: cartName })  // Corrected to 'cartName'
-  })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log("Cart added successfully:", data);
-    fetchAvailableReceipts();
-  })
-  .catch((error) => {
-    console.error("Error adding new cart:", error);
-  });
 }

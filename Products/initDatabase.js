@@ -27,7 +27,8 @@ const createCartTable = `
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         ingredient TEXT,
         quantity INTEGER,
-        name TEXT    
+        name TEXT,
+        email TEXT    
     )
 `;
 

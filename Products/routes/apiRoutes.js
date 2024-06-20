@@ -125,19 +125,19 @@ const apiRoutes = {
       });
       req.on("end", () => {
         try {
-          const { cartName } = JSON.parse(body);
+          const { cartName, email } = JSON.parse(body);
 
-          if (!cartName || typeof cartName !== "string") {
+          if (!cartName || typeof cartName !== "string" || !email || typeof email !== "string") {
             res.writeHead(400, { "Content-Type": "application/json" });
             res.end(
               JSON.stringify({
-                error: "cartName is required and must be a string",
+                error: "cartName and email are required and must be strings",
               })
             );
             return;
           }
 
-          addNewCart(cartName)
+          addNewCart(cartName, email)
             .then((result) => {
               res.writeHead(200, { "Content-Type": "application/json" });
               res.end(
