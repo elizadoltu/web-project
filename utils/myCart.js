@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetchAvailableReceipts();
+
+  document.getElementById("new-cart-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const newCartName = document.getElementById("new-cart-name").value.trim();
+    if (newCartName) {
+      addNewCart(newCartName);
+      document.getElementById("new-cart-name").value = "";
+    }
+  });
 });
 
 function fetchAvailableReceipts() {
@@ -68,4 +77,27 @@ function displayReceiptDetails(receiptId) {
     .catch((error) => {
       console.error("Error fetching receipt details:", error);
     });
+}
+
+function addNewCart(cartName) {
+  fetch("http://localhost:3002/api/addReceipt", {
+    method: "PUT",  // or "POST" depending on server expectation
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cartName: cartName })  // Corrected to 'cartName'
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Cart added successfully:", data);
+    fetchAvailableReceipts();
+  })
+  .catch((error) => {
+    console.error("Error adding new cart:", error);
+  });
 }
