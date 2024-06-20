@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "node server/server.js",
-    "create-database": "node server/data/initialize-database.js",
+    "create-database": "node server/data/initialize-database.js && node Products/initDatabase",
     "test": "node tests/allTests.js"
   },
   "keywords": [],

@@ -26,7 +26,8 @@ const createCartTable = `
     CREATE TABLE IF NOT EXISTS cart (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         ingredient TEXT,
-        quantity INTEGER
+        quantity INTEGER,
+        name TEXT    
     )
 `;
 
@@ -38,7 +39,7 @@ const createBarcodesTable = `
     )
 `;
 
-const createReceipeTable = `
+const createRecipeTable = `
     CREATE TABLE IF NOT EXISTS recipes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
@@ -57,6 +58,12 @@ const insertUsers = [
     { username: 'user1', email: 'user1@example.com', password: 'password1' },
     { username: 'user2', email: 'user2@example.com', password: 'password2' },
     { username: 'user3', email: 'user3@example.com', password: 'password3' }
+];
+
+const insertCartItems = [
+    { ingredient: 'Tomato', quantity: 2, name: 'Cart A' },
+    { ingredient: 'Onion', quantity: 3, name: 'Cart B' },
+    { ingredient: 'Garlic', quantity: 1, name: 'Cart A' }
 ];
 
 db.serialize(() => {
@@ -80,6 +87,14 @@ db.serialize(() => {
         if (err) console.error('Error creating cart table:', err.message);
     });
 
+    insertCartItems.forEach(item => {
+        const { ingredient, quantity, name } = item;
+        const sql = `INSERT INTO cart (ingredient, quantity, name) VALUES (?, ?, ?)`;
+        db.run(sql, [ingredient, quantity, name], err => {
+            if (err) console.error('Error inserting cart item:', err.message);
+        });
+    });
+
     db.run('DROP TABLE IF EXISTS barcodes', err => {
         if (err) console.error('Error dropping barcodes table:', err.message);
     });
@@ -100,7 +115,7 @@ db.serialize(() => {
         if (err) console.error("Error dropping recipes table:", err.message);
     });
 
-    db.run(createReceipeTable, err => {
+    db.run(createRecipeTable, err => {
         if (err) console.error('Error creating the recipes table:', err.message);
     });
 

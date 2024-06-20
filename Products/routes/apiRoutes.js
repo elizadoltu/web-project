@@ -1,5 +1,7 @@
 const getRecipeByName = require("../apis/getRecipe");
 const addToCart = require("../apis/addToCart");
+const getReceipts = require("../apis/getReceipts");
+const getIngredients = require("../apis/getIngredients");
 
 const apiRoutes = {
   "/api/recipe": (req, res) => {
@@ -27,44 +29,88 @@ const apiRoutes = {
     if (req.method === "PUT") {
       let body = "";
       req.on("data", (chunk) => {
-        body += chunk.toString();
+          body += chunk.toString();
       });
       req.on("end", () => {
-        try {
-          const { ingredients } = JSON.parse(body);
+          try {
+              const { cartName, ingredients } = JSON.parse(body);
 
-          if (!ingredients || !Array.isArray(ingredients)) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "ingredients array is required" }));
-            return;
-          }
+              if (!cartName || typeof cartName !== "string") {
+                  res.writeHead(400, { "Content-Type": "application/json" });
+                  res.end(JSON.stringify({ error: "cartName is required and must be a string" }));
+                  return;
+              }
 
-          const promises = ingredients.map((ingredient) =>
-            addToCart(ingredient)
-          );
-          Promise.all(promises)
-            .then((messages) => {
-              res.writeHead(200, { "Content-Type": "application/json" });
-              res.end(JSON.stringify({ messages }));
-            })
-            .catch((error) => {
-              console.error("Error adding ingredients to cart:", error);
-              res.writeHead(500, { "Content-Type": "application/json" });
-              res.end(
-                JSON.stringify({ error: "Failed to add ingredients to cart" })
+              if (!ingredients || !Array.isArray(ingredients)) {
+                  res.writeHead(400, { "Content-Type": "application/json" });
+                  res.end(JSON.stringify({ error: "ingredients array is required" }));
+                  return;
+              }
+
+              const promises = ingredients.map(({ ingredient }) =>
+                  addToCart(ingredient, cartName)
               );
-            });
-        } catch (error) {
-          console.error("Error parsing JSON:", error);
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Invalid JSON" }));
-        }
+
+              Promise.all(promises)
+                  .then((messages) => {
+                      res.writeHead(200, { "Content-Type": "application/json" });
+                      res.end(JSON.stringify({ messages }));
+                  })
+                  .catch((error) => {
+                      console.error("Error adding ingredients to cart:", error);
+                      res.writeHead(500, { "Content-Type": "application/json" });
+                      res.end(JSON.stringify({ error: "Failed to add ingredients to cart" }));
+                  });
+          } catch (error) {
+              console.error("Error parsing JSON:", error);
+              res.writeHead(400, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Invalid JSON" }));
+          }
       });
-    } else {
+  } else {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not Found" }));
+  }
+},
+
+
+  "/api/receipts": (req, res) => {
+    if (req.method === "GET") {
+      getReceipts()
+        .then((receipts) => {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ receipts }));
+        })
+        .catch((error) => {
+          console.error("Error fetching receipts:", error);
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Not found" }));
+        });
+    } else {
+      res.writeHead(404, { "Content-Type": "application" });
+      res.end(JSON.stringify({ error: "Not found" }));
     }
   },
+  "/api/getIngredients": (req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const cartName = url.searchParams.get('name');
+
+    if (req.method === 'GET' && cartName) {
+        getIngredients(cartName)
+            .then((ingredients) => {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ ingredients }));
+            })
+            .catch((error) => {
+                console.error("Error fetching ingredients:", error);
+                res.writeHead(500, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ error: "Not found" }));
+            });
+    } else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Not found" }));
+    }
+}
 };
 
 function handleApiRoutes(req, res) {
