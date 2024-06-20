@@ -53,198 +53,58 @@
 
 .options-info {
     font-family: 'Truecolor Personal Use Regular', sans-serif;
-    font-size: 3em;
+    font-size: 1.5em;
     color: var(--font-color);
     font-weight: 50;
     margin-top: 20px; 
-    margin-left: 20px; 
-
+    padding-left: 20px; 
 }
 
-.options-info #options-user{
-    font-size: 1em;
-    font-weight: 50;
+.form-group {
     margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 20%;
-    left: 20px;
-    
-    
 }
 
-.options-info #options-password{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 30%;
-    left: 20px;
- 
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-
-.options-info #options-vegetarian{
+.form-group input {
+    width: 100%;
+    padding: 10px;
     font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 40%;
-    left: 20px;
-    
-    
 }
 
-.options-info .vegetarian-button{
+.options-info button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
     font-size: 1em;
     font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 40%;
-    left: 20%;
-    transition: background-color 0.3s ease; 
-    background-color: #002B2A; 
-    border: none; 
-    color: #FFFFFF; 
+    background-color: #002B2A;
+    border: none;
+    color: #FFFFFF;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.options-info .vegetarian-button:hover {
+.options-info button:hover {
     background-color: #005458;
     transform: scale(1.05);
-  }
-  
-  .options-info .vegetarian-button:active {
+}
+
+.options-info button:active {
     transform: scale(0.95);
-  }
-
-.options-info #options-vegan{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    
-    
 }
 
-.options-info .vegan-button{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
+.vegetarian-button, .vegan-button, .allergies-button, .statistics-button, .submit-button {
+    width: calc(100% - 40px);
     margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    transition: background-color 0.3s ease; 
-    background-color: #002B2A; 
-    border: none; 
-    color: #FFFFFF; 
-    cursor: pointer;
 }
 
-.options-info .vegan-button:hover {
-    background-color: #005458;
-    transform: scale(1.05);
-  }
-  
-  .options-info .vegan-button:active {
-    transform: scale(0.95);
-  }
-.options-info #options-allergies{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 60%;
-    left: 20px;
-    
-    
-}
-
-.options-info .allergies-button{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 60%;
-    left: 20%;
-    transition: background-color 0.3s ease; 
-    background-color: #002B2A; 
-    border: none; 
-    color: #FFFFFF; 
-    cursor: pointer;
-    
-
-}
-
-.options-info .allergies-button:hover {
-    background-color: #005458;
-    transform: scale(1.05);
-  }
-  
-  .options-info .allergies-button:active {
-    transform: scale(0.95);
-  }
-
-.options-info #options-statistics{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 70%;
-    left: 20px;
-    
-    
-}
-
-.options-info .statistics-button{
-    font-size: 1em;
-    font-weight: 50;
-    margin-top: 20px;
-    margin-left: 20px;
-    align-items: center;
-    position: absolute;
-    top: 70%;
-    left: 20%;
-    transition: background-color 0.3s ease; 
-    background-color: #002B2A; 
-    border: none; 
-    color: #FFFFFF; 
-    cursor: pointer;
-}
-
-.options-info .statistics-button:hover {
-    background-color: #005458;
-    transform: scale(1.05);
-  }
-  
-  .options-info .statistics-button:active {
-    transform: scale(0.95);
-  }
-
-
-  .platou-options {
+.platou-options {
     position: absolute;
     top: 68%;
     left: 40%;
     transform: translate(50%, -50%);
 }
-

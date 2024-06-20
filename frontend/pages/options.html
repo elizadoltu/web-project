@@ -20,39 +20,71 @@
     <div class="app-name-logo-container">
       <div id="arrow-nav-back-options">&#8592;</div>
       <div id="options-title">Change your options</div>
-      
       <span id="official-logo" class="material-symbols-outlined">
         soup_kitchen
-      </span> 
+      </span>
     </div>
     <div id="horizontal-line"></div>
     <div class="options-info">
-        <div id="options-user">Display name</div>
+        <div class="form-group">
+            <label for="new-username" id="options-user">Display name</label>
+            <input type="text" id="new-username" placeholder="New Username" />
+        </div>
+        <div class="form-group">
+            <label for="new-password" id="options-password">Password</label>
+            <input type="password" id="new-password" placeholder="New Password" />
+        </div>
 
-        <div id="options-password">Password</div>
+        <div id="options-vegetarian">Vegetarian</div>
+        <button class="vegetarian-button">Vegetarian</button>
+        <div id="options-vegan">Vegan</div>
+        <button class="vegan-button">Vegan</button>
 
-            <div id="options-vegetarian">Vegetarian</div>
-            <button class="vegetarian-button">Vegetarian</button>
-            <div id="options-vegan">Vegan</div>
-            <button class="vegan-button">Vegan</button>
-        
-        <div class="options-allergies">
-            <div id="options-allergies">Allergies</div>
-            <button class="allergies-button">Show all allergies</button>  
+        <div id="options-allergies">Allergies</div>
+        <button class="allergies-button">Show all allergies</button>
+
+        <div id="options-statistics">Statistics</div>
+        <button class="statistics-button">Send statistics</button>
+
+        <button id="update-button" type="button" class="submit-button">Submit</button>
     </div>
-        
-            <div id="options-statistics">Statistics</div>
-            <button class="statistics-button">Send statistics</button>
-
-
-          
-    </div>
-    
-
     <img class="platou-options" src="/frontend/images/png/platou.png" alt="platou image">
-
   </section>
   <script src="/scripts/navBack.js"></script>
+  <script>
+      // Function to get a cookie by name
+      function getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(';');
+          for(let i = 0; i < ca.length; i++) {
+              let c = ca[i];
+              while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+              if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+      }
 
+      document.getElementById('update-button').addEventListener('click', function() {
+          const email = getCookie('rememberedEmail'); // cookie created when logging in or when creating account
+          const newUsername = document.getElementById('new-username').value;
+          const newPassword = document.getElementById('new-password').value;
+
+          const userData = { email, newUsername, newPassword };
+
+          fetch('/api/updateUser', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(userData)
+          }).then(response => {
+              if (response.ok) {
+                  alert('Update successful');
+              } else {
+                  response.text().then(text => alert('Error: ' + text));
+              }
+          });
+      });
+  </script>
 </body>
 </html>

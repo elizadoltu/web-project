@@ -19,6 +19,13 @@ const createBarcodesTable = `
     )
 `;
 
+const createAllergiesTable = `
+    CREATE TABLE IF NOT EXISTS user_allergies (
+        email TEXT PRIMARY KEY,
+        allergies TEXT NOT NULL, -- JSON array of allergies
+        FOREIGN KEY (email) REFERENCES users(email)
+    )
+`;
 
 const insertUsers = [
     {
@@ -38,13 +45,20 @@ const insertUsers = [
     }
 ];
 
-
 db.serialize(() => {
     db.run(createUsersTable, (err) => {
         if (err) {
             console.error('Error creating users table:', err.message);
         } else {
             console.log('Users table created successfully');
+        }
+    });
+
+    db.run(createAllergiesTable, (err) => {
+        if (err) {
+            console.error('Error creating allergies table:', err.message);
+        } else {
+            console.log('Allergies table created successfully');
         }
     });
 
@@ -102,8 +116,7 @@ db.serialize(() => {
         } else {
             console.log('Recipes table was dropped');
         }
-    })
-
+    });
 
     db.close((err) => {
         if (err) {
