@@ -1,0 +1,198 @@
+[
+    {
+      "name": "Beef Tacos",
+      "calories": 450,
+      "protein": 30,
+      "fat": 20,
+      "carbs": 35,
+      "description": "Savory beef tacos made with seasoned ground beef, topped with fresh lettuce, tomatoes, cheese, and a dollop of sour cream, all wrapped in a soft flour tortilla.",
+      "ingredients": [
+        { "ingredient": "Ground beef", "quantity": "500g" },
+        { "ingredient": "Flour tortillas", "quantity": "8" },
+        { "ingredient": "Lettuce", "quantity": "1 cup, shredded" },
+        { "ingredient": "Tomatoes", "quantity": "1 cup, diced" },
+        { "ingredient": "Cheese", "quantity": "1 cup, shredded" },
+        { "ingredient": "Sour cream", "quantity": "1/2 cup" },
+        { "ingredient": "Taco seasoning", "quantity": "1 packet" }
+      ],
+      "preparation": "Begin by heating a large skillet over medium-high heat. Add the ground beef and cook, breaking it apart with a wooden spoon, until it is browned and fully cooked. Drain any excess fat. Add the taco seasoning and a little water according to the packet instructions, stirring to coat the beef evenly. Reduce heat to low and simmer for a few minutes to let the flavors meld. While the beef is cooking, prepare the toppings by shredding the lettuce, dicing the tomatoes, and shredding the cheese. Warm the flour tortillas in a dry skillet or microwave. Assemble the tacos by placing a generous portion of the seasoned beef on each tortilla, followed by the lettuce, tomatoes, cheese, and a dollop of sour cream. Serve immediately.",
+      "category": "Lunch"
+    },
+    {
+      "name": "Grilled Chicken Salad",
+      "calories": 400,
+      "protein": 35,
+      "fat": 15,
+      "carbs": 20,
+      "description": "A light and refreshing salad featuring grilled chicken breast, mixed greens, cherry tomatoes, cucumber slices, and a zesty vinaigrette.",
+      "ingredients": [
+        { "ingredient": "Chicken breast", "quantity": "2 pieces" },
+        { "ingredient": "Mixed greens", "quantity": "4 cups" },
+        { "ingredient": "Cherry tomatoes", "quantity": "1 cup, halved" },
+        { "ingredient": "Cucumber", "quantity": "1 cup, sliced" },
+        { "ingredient": "Vinaigrette", "quantity": "1/4 cup" }
+      ],
+      "preparation": "Preheat your grill to medium-high heat. Season the chicken breasts with salt and pepper. Grill the chicken for about 6-8 minutes per side, or until the internal temperature reaches 165°F (75°C) and the chicken is no longer pink in the center. Let the chicken rest for a few minutes before slicing it into strips. While the chicken is grilling, prepare the salad by combining the mixed greens, halved cherry tomatoes, and sliced cucumber in a large bowl. Once the chicken is ready, add it to the salad and drizzle with the vinaigrette. Toss everything together gently to combine and serve immediately for a fresh and healthy meal.",
+      "category": "Dinner"
+    },
+    {
+      "name": "Caprese Sandwich",
+      "calories": 350,
+      "protein": 12,
+      "fat": 18,
+      "carbs": 35,
+      "description": "A fresh and flavorful sandwich made with ripe tomatoes, mozzarella cheese, fresh basil, and a drizzle of balsamic glaze on ciabatta bread.",
+      "ingredients": [
+        { "ingredient": "Ciabatta bread", "quantity": "2 pieces" },
+        { "ingredient": "Tomato", "quantity": "1, sliced" },
+        { "ingredient": "Mozzarella", "quantity": "4 slices" },
+        { "ingredient": "Fresh basil", "quantity": "1/4 cup" },
+        { "ingredient": "Balsamic glaze", "quantity": "2 tbsp" }
+      ],
+      "preparation": "Start by slicing the ciabatta bread in half horizontally. Layer the tomato slices and mozzarella on the bottom half of the bread. Tear the fresh basil leaves and scatter them over the mozzarella. Drizzle with the balsamic glaze, being generous enough to cover the ingredients but not so much that it overpowers the flavors. Place the top half of the ciabatta bread over the fillings to form the sandwich. For an added touch, you can lightly toast the sandwich in a panini press or a grill pan until the cheese begins to melt and the bread is golden and crispy. Cut the sandwich into halves or quarters and serve immediately.",
+      "category": "Lunch"
+    },
+    {
+      "name": "Vegetarian Stir Fry",
+      "calories": 300,
+      "protein": 10,
+      "fat": 8,
+      "carbs": 50,
+      "description": "A vibrant stir fry with a mix of colorful vegetables, including bell peppers, broccoli, and carrots, sautéed in a tangy soy-ginger sauce and served over steamed rice.",
+      "ingredients": [
+        { "ingredient": "Bell peppers", "quantity": "1 cup, sliced" },
+        { "ingredient": "Broccoli florets", "quantity": "1 cup" },
+        { "ingredient": "Carrots", "quantity": "1 cup, sliced" },
+        { "ingredient": "Soy sauce", "quantity": "1/4 cup" },
+        { "ingredient": "Ginger", "quantity": "1 tbsp, minced" },
+        { "ingredient": "Rice", "quantity": "2 cups, cooked" }
+      ],
+      "preparation": "Begin by preparing the vegetables: slice the bell peppers and carrots, and cut the broccoli into bite-sized florets. Heat a large wok or skillet over medium-high heat and add a small amount of oil. Once the oil is hot, add the minced ginger and stir-fry for about 30 seconds until fragrant. Add the bell peppers, broccoli, and carrots to the wok, and stir-fry for about 5-7 minutes until the vegetables are tender-crisp. Pour in the soy sauce and continue to stir-fry for another 2 minutes, ensuring the vegetables are evenly coated with the sauce. Serve the stir-fried vegetables over a bed of steamed rice. For added flavor, you can garnish with sesame seeds or a splash of lime juice.",
+      "category": "Dinner"
+    },
+    {
+      "name": "Avocado Toast",
+      "calories": 250,
+      "protein": 6,
+      "fat": 20,
+      "carbs": 20,
+      "description": "Creamy mashed avocado spread on whole grain toast, topped with a sprinkle of salt, pepper, and a drizzle of olive oil.",
+      "ingredients": [
+        { "ingredient": "Whole grain bread", "quantity": "2 slices" },
+        { "ingredient": "Avocado", "quantity": "1, mashed" },
+        { "ingredient": "Olive oil", "quantity": "1 tbsp" },
+        { "ingredient": "Salt", "quantity": "to taste" },
+        { "ingredient": "Pepper", "quantity": "to taste" }
+      ],
+      "preparation": "Start by toasting the whole grain bread slices until they are golden and crispy. While the bread is toasting, cut the avocado in half, remove the pit, and scoop the flesh into a bowl. Mash the avocado with a fork until it reaches a smooth but slightly chunky consistency. Once the bread is toasted, spread a generous layer of the mashed avocado on each slice. Drizzle with a small amount of olive oil and season with salt and pepper to taste. For an extra touch, you can add toppings like cherry tomatoes, red pepper flakes, or a squeeze of lemon juice. Serve immediately while the toast is still warm.",
+      "category": "Breakfast"
+    },
+    {
+      "name": "Vegan Buddha Bowl",
+      "calories": 400,
+      "protein": 12,
+      "fat": 15,
+      "carbs": 50,
+      "description": "A nutritious bowl filled with quinoa, roasted sweet potatoes, chickpeas, avocado, and a tahini dressing.",
+      "ingredients": [
+        { "ingredient": "Quinoa", "quantity": "1 cup, cooked" },
+        { "ingredient": "Sweet potatoes", "quantity": "1 cup, roasted" },
+        { "ingredient": "Chickpeas", "quantity": "1 cup, cooked" },
+        { "ingredient": "Avocado", "quantity": "1, sliced" },
+        { "ingredient": "Tahini", "quantity": "2 tbsp" },
+        { "ingredient": "Lemon juice", "quantity": "1 tbsp" }
+      ],
+      "preparation": "Preheat your oven to 400°F (200°C). Peel and dice the sweet potatoes into small cubes, then spread them on a baking sheet lined with parchment paper. Drizzle with a bit of olive oil and season with salt and pepper. Roast in the oven for about 25-30 minutes, or until they are tender and slightly caramelized. While the sweet potatoes are roasting, cook the quinoa according to package instructions. In a small bowl, whisk together the tahini and lemon juice to make the dressing, adding a bit of water if needed to reach a pourable consistency. To assemble the Buddha bowl, place the cooked quinoa at the bottom, then layer on the roasted sweet potatoes, chickpeas, and sliced avocado. Drizzle with the tahini dressing and serve immediately.",
+      "category": "Lunch"
+    },
+    {
+      "name": "Chocolate Chip Cookies",
+      "calories": 200,
+      "protein": 2,
+      "fat": 10,
+      "carbs": 30,
+      "description": "Classic chocolate chip cookies with a soft and chewy center, loaded with gooey chocolate chips.",
+      "ingredients": [
+        { "ingredient": "Butter", "quantity": "1 cup" },
+        { "ingredient": "Sugar", "quantity": "1 cup" },
+        { "ingredient": "Brown sugar", "quantity": "1 cup" },
+        { "ingredient": "Eggs", "quantity": "2" },
+        { "ingredient": "Vanilla extract", "quantity": "1 tsp" },
+        { "ingredient": "Flour", "quantity": "3 cups" },
+        { "ingredient": "Baking soda", "quantity": "1 tsp" },
+        { "ingredient": "Chocolate chips", "quantity": "2 cups" }
+      ],
+      "preparation": "Preheat your oven to 350°F (175°C). In a large mixing bowl, cream together the butter, sugar, and brown sugar until the mixture is light and fluffy. Beat in the eggs one at a time, then stir in the vanilla extract. In a separate bowl, whisk together the flour and baking soda. Gradually add the dry ingredients to the wet mixture, stirring until just combined. Fold in the chocolate chips. Drop spoonfuls of cookie dough onto ungreased baking sheets, spacing them about 2 inches apart. Bake for 10-12 minutes, or until the edges are golden brown but the centers are still soft. Allow the cookies to cool on the baking sheets for a few minutes before transferring them to wire racks to cool completely.",
+      "category": "Dessert"
+    },
+    {
+      "name": "Fruit Salad",
+      "calories": 150,
+      "protein": 2,
+      "fat": 0.5,
+      "carbs": 35,
+      "description": "A refreshing mix of seasonal fruits, including strawberries, blueberries, kiwi, and mango, tossed in a light honey-lime dressing.",
+      "ingredients": [
+        { "ingredient": "Strawberries", "quantity": "1 cup, sliced" },
+        { "ingredient": "Blueberries", "quantity": "1 cup" },
+        { "ingredient": "Kiwi", "quantity": "2, sliced" },
+        { "ingredient": "Mango", "quantity": "1, diced" },
+        { "ingredient": "Honey", "quantity": "2 tbsp" },
+        { "ingredient": "Lime juice", "quantity": "1 tbsp" }
+      ],
+      "preparation": "Prepare the fruits by washing them thoroughly. Hull and slice the strawberries, peel and slice the kiwi, and dice the mango. Combine all the fruits in a large mixing bowl. In a small bowl, mix together the honey and lime juice until well combined. Drizzle the honey-lime dressing over the fruit and gently toss to coat all the pieces evenly. Let the fruit salad sit for a few minutes to allow the flavors to meld. Serve the fruit salad chilled, garnished with a few mint leaves if desired.",
+      "category": "Dessert"
+    },
+    {
+      "name": "Vegan Chocolate Mousse",
+      "calories": 180,
+      "protein": 3,
+      "fat": 12,
+      "carbs": 18,
+      "description": "A rich and creamy vegan chocolate mousse made with avocado, cocoa powder, and a touch of maple syrup.",
+      "ingredients": [
+        { "ingredient": "Avocado", "quantity": "2, ripe" },
+        { "ingredient": "Cocoa powder", "quantity": "1/4 cup" },
+        { "ingredient": "Maple syrup", "quantity": "1/4 cup" },
+        { "ingredient": "Vanilla extract", "quantity": "1 tsp" }
+      ],
+      "preparation": "Cut the avocados in half, remove the pits, and scoop the flesh into a food processor or blender. Add the cocoa powder, maple syrup, and vanilla extract. Blend until the mixture is completely smooth and creamy, scraping down the sides of the bowl as needed. Taste and adjust the sweetness by adding more maple syrup if desired. Transfer the mousse to serving bowls and chill in the refrigerator for at least an hour before serving. This will allow the mousse to firm up slightly. Serve the vegan chocolate mousse topped with fresh berries or a sprinkle of cocoa nibs for an added touch.",
+      "category": "Dessert"
+    },
+    {
+      "name": "Grilled Salmon",
+      "calories": 400,
+      "protein": 35,
+      "fat": 20,
+      "carbs": 5,
+      "description": "Perfectly grilled salmon fillets seasoned with lemon, dill, and garlic, served with a side of steamed asparagus.",
+      "ingredients": [
+        { "ingredient": "Salmon fillets", "quantity": "2" },
+        { "ingredient": "Lemon", "quantity": "1, sliced" },
+        { "ingredient": "Dill", "quantity": "2 tbsp, chopped" },
+        { "ingredient": "Garlic", "quantity": "2 cloves, minced" },
+        { "ingredient": "Asparagus", "quantity": "1 bunch, steamed" }
+      ],
+      "preparation": "Preheat the grill to medium-high heat. Pat the salmon fillets dry with paper towels and season them with a little salt and pepper. Place a few lemon slices, freshly chopped dill, and minced garlic on top of each fillet. Grill the salmon for about 5-7 minutes on each side, or until the fish flakes easily with a fork and has nice grill marks. While the salmon is grilling, steam the asparagus in a steamer basket over boiling water for about 5 minutes, or until tender-crisp. Serve the grilled salmon hot with a side of steamed asparagus, garnished with additional lemon slices and dill if desired.",
+      "category": "Dinner"
+    },
+    {
+      "name": "Fish Tacos",
+      "calories": 300,
+      "protein": 25,
+      "fat": 10,
+      "carbs": 30,
+      "description": "Light and flavorful fish tacos made with grilled white fish, topped with a fresh cabbage slaw and a squeeze of lime.",
+      "ingredients": [
+        { "ingredient": "White fish fillets", "quantity": "2" },
+        { "ingredient": "Corn tortillas", "quantity": "6" },
+        { "ingredient": "Cabbage", "quantity": "1 cup, shredded" },
+        { "ingredient": "Lime", "quantity": "1, cut into wedges" },
+        { "ingredient": "Cilantro", "quantity": "1/4 cup, chopped" },
+        { "ingredient": "Sour cream", "quantity": "1/4 cup" }
+      ],
+      "preparation": "Preheat the grill to medium-high heat. Season the white fish fillets with a little salt and pepper, and grill them for about 3-4 minutes on each side, or until they are cooked through and flaky. While the fish is grilling, prepare the cabbage slaw by shredding the cabbage and chopping the cilantro. Warm the corn tortillas on the grill or in a dry skillet until they are pliable and slightly charred. To assemble the tacos, flake the grilled fish and place it on the warmed tortillas. Top with shredded cabbage, chopped cilantro, a dollop of sour cream, and a squeeze of fresh lime juice. Serve immediately, garnished with additional lime wedges on the side.",
+      "category": "Lunch"
+    }
+  ]
+  
