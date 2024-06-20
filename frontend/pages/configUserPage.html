@@ -16,7 +16,7 @@
 <body>
     <section id="main-section-register">
         <div id="arrow-nav-back">&#8592;</div>
-        <h2 id="hey-username">Hey, /username/!</h3>
+        <h2 id="hey-username">Hey, /username/!</h2>
         <div id="options-allergies-container">
             <div id="more-info-container">
                 <h3>Tell us more about you</h3>
@@ -24,37 +24,52 @@
             </div>
             <div id="buttons-main-container">
                 <div id="buttons-container">
-                <button class="transparent-button">Milk</button>
-                <button class="white-button">Eggs</button>
-                <button class="transparent-button">Peanuts</button>
-                <button class="white-button">Soy</button>
+                    <button class="transparent-button">Milk</button>
+                    <button class="white-button">Eggs</button>
+                    <button class="transparent-button">Peanuts</button>
+                    <button class="white-button">Soy</button>
+                </div>
+                <div id="buttons-container">
+                    <button class="white-button">Tree nuts</button>
+                    <button class="transparent-button">Banana</button>
+                    <button class="white-button">Garlic</button>
+                    <button class="transparent-button">None</button>
+                </div>
+                <div id="buttons-container">
+                    <button class="transparent-button">Fish</button>
+                    <button class="white-button">Wheat</button>
+                    <button class="transparent-button">Sesame</button>
+                </div>
             </div>
-            <div id="buttons-container">
-                <button class="white-button">Tree nuts</button>
-                <button class="transparent-button">Banana</button>
-                <button class="white-button">Garlic</button>
-                <button class="transparent-button">None</button>
-            </div>
-            <div id="buttons-container">
-                <button class="transparent-button">Fish</button>
-                <button class="white-button">Wheat</button>
-                <button class="transparent-button">Sesame</button>
-            </div>
-            </div>
-            
         </div>
         <div>
             <input type="text" id="other-pref" name="username" placeholder="Other">
         </div>
-        
         <button id="continue-and-submit-button">Continue</button>
         <img id="image-choose-pref" src="/frontend/images/png/salad-choose-pref.png" alt="food photo">
     </section>
     <script src="/scripts/navBack.js"></script>
     <script>
+        // Function to get a cookie by name
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
         window.addEventListener('DOMContentLoaded', function() {
-            const adminButton = document.getElementById('continue-and-submit-button');
-            adminButton.addEventListener('click', function(event) {
+            const username = getCookie('username');
+            if (username) {
+                document.getElementById('hey-username').textContent = `Hey, ${username}!`;
+            }
+
+            const continueButton = document.getElementById('continue-and-submit-button');
+            continueButton.addEventListener('click', function(event) {
                 event.preventDefault();
                 window.location.href = '/frontend/pages/foryouPage.html';
             });

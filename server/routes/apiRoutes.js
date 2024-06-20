@@ -3,7 +3,8 @@ const getProductByBarcode = require('../apis/getProductByBarcode');
 const getAllBarcodes = require('../apis/getAllBarcodes');
 const loginUser = require('../apis/loginUser');
 const registerUser = require('../apis/registerUser');
-const loginAdmin = require('../apis/loginAdmin'); 
+const loginAdmin = require('../apis/loginAdmin');
+const updateUser = require('../apis/updateUser'); // Add the updateUser module
 
 const apiRoutes = {
     '/api/users': getAllUsers,
@@ -45,9 +46,17 @@ const apiRoutes = {
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
         }
     },
-    '/api/loginAdmin': (req, res) => { // Add the route for admin login
+    '/api/loginAdmin': (req, res) => {
         if (req.method === 'POST') {
             loginAdmin(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/updateUser': (req, res) => { // Add the route for updating user information
+        if (req.method === 'POST') {
+            updateUser(req, res);
         } else {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
