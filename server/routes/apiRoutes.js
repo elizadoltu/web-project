@@ -5,6 +5,7 @@ const updateUser = require('../apis/updateUser');
 const addUserAllergy = require('../apis/userAllergies'); 
 const getUserInfo = require('../apis/getUserInfo'); 
 const getUserAllergies = require('../apis/getUserAllergies'); 
+const updateDietaryPreference = require('../apis/updateDietaryPreference'); 
 
 const apiRoutes = {
     "/api/products": (req, res) => {
@@ -44,7 +45,7 @@ const apiRoutes = {
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
         }
     },
-    '/api/addUserAllergy': (req, res) => { // Fix the route name
+    '/api/addUserAllergy': (req, res) => { 
         if (req.method === 'POST') {
             addUserAllergy(req, res);
         } else {
@@ -52,7 +53,7 @@ const apiRoutes = {
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
         }
     },
-    '/api/getUserInfo': (req, res) => { // Add this route
+    '/api/getUserInfo': (req, res) => { 
         if (req.method === 'GET') {
             getUserInfo(req, res);
         } else {
@@ -60,9 +61,17 @@ const apiRoutes = {
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
         }
     },
-    '/api/getUserAllergies': (req, res) => { // Add this route
+    '/api/getUserAllergies': (req, res) => { 
         if (req.method === 'GET') {
             getUserAllergies(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/updateDietaryPreference': (req, res) => { 
+        if (req.method === 'POST') {
+            updateDietaryPreference(req, res);
         } else {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));

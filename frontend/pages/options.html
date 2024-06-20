@@ -114,6 +114,35 @@
               }
           });
       });
+
+      // Dietary Preference Script
+      function updateDietaryPreference(preference) {
+          const email = getCookie('rememberedEmail');
+
+          fetch('/api/updateDietaryPreference', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, preference })
+          }).then(response => {
+              if (response.ok) {
+                  alert(`${preference.charAt(0).toUpperCase() + preference.slice(1)} preference updated successfully`);
+              } else {
+                  response.text().then(text => alert('Error: ' + text));
+              }
+          }).catch(error => {
+              console.error('Error:', error);
+          });
+      }
+
+      document.querySelector('.vegetarian-button').addEventListener('click', function() {
+          updateDietaryPreference('vegetarian');
+      });
+
+      document.querySelector('.vegan-button').addEventListener('click', function() {
+          updateDietaryPreference('vegan');
+      });
   </script>
 </body>
 </html>
