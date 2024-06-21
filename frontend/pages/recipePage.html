@@ -88,24 +88,13 @@
           <!-- Receipts will be populated dynamically -->
         </div>
       </div>
-      <button id="save-button">
+      <button id="save-button" class="save-button">
         <span class="material-symbols-outlined"> bookmark </span> Save
       </button>
     </div>
     <script src="/scripts/openAnotherPages.js"></script>
     <script src="/utils/fetchRecipeDetails.js"></script>
-    <script>
-      function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) === " ") c = c.substring(1, c.length);
-          if (c.indexOf(nameEQ) === 0)
-            return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-      }
+    <script src="/utils/scriptSaveRecipe.js"></script>
     </script>
   </body>
 </html>

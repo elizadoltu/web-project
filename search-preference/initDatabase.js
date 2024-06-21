@@ -23,7 +23,8 @@ const createPreferenceTable = `
     CREATE TABLE IF NOT EXISTS userPreference (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         barcode INTEGER UNIQUE,
-        email TEXT
+        email TEXT,
+        recipeName TEXT
     )
 `;
 

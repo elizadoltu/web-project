@@ -1,11 +1,15 @@
 const http = require('http');
-const handleApiRoutes = require('./routes/apiRoutes');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const url = require('url');
+const handleApiRoutes = require('./routes/apiRoutes'); 
 
 const PORT = 3003;
+
 const server = http.createServer((req, res) => {
-    
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE. OPTIONS');
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
@@ -17,7 +21,7 @@ const server = http.createServer((req, res) => {
     if (req.url.startsWith('/api')) {
         handleApiRoutes(req, res);
     } else {
-        res.writeHead(404, { 'Content-Type' : 'application/json'});
+        res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Not Found' }));
     }
 });

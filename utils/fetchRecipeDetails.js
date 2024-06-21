@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const recipeName = urlParams.get("name");
   const email = getCookie('rememberedEmail');
-
   if (recipeName) {
     fetchRecipeDetails(recipeName, email);
   } else {
@@ -13,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchAvailableReceipts(email, []); 
   }
 
+  
   const addToCartButton = document.getElementById("add-to-cart-button");
   addToCartButton.addEventListener("click", () => {
     const ingredientList = Array.from(
@@ -32,6 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("No receipt selected to add to cart.");
     }
   });
+  // if (saveButton) {
+  //   saveButton.addEventListener("click", () => {
+  //     console.log("Save button clicked");
+  //     saveRecipe(recipeName, email);
+  //   });
+  // } else {
+  //   console.error("Save button not found");
+  // }
 });
 
 function getCookie(name) {
@@ -150,3 +158,4 @@ function addToCartAPIRequest(cartName, ingredients, email) {
     console.error("Error adding ingredients to cart:", error);
   });
 }
+
