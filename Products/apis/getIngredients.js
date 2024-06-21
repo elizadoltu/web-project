@@ -1,36 +1,35 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function getIngredients(cartName) {
+function getIngredients(cartName, email) {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database('./data/database.db');
-
-        db.all('SELECT ingredient, quantity FROM cart WHERE name = ?', [cartName], (err, rows) => {
+        const db = new sqlite3.Database('./data/database.db', (err) => {
             if (err) {
-                db.close((dbErr) => {
-                    if (dbErr) {
-                        console.error('Error closing database connection');
-                    }
-                });
                 reject(err);
                 return;
             }
-            if (!rows.length) {
-                db.close((dbErr) => {
-                    if (dbErr) {
-                        console.error('Error closing database connection');
+        });
+
+        db.all('SELECT ingredient, quantity FROM cart WHERE name = ? AND email = ?', [cartName, email], (err, rows) => {
+            if (err) {
+                db.close((closeErr) => {
+                    if (closeErr) {
+                        console.error("Error closing database:", closeErr);
                     }
+                    reject(err);
                 });
-                reject({ error: 'No ingredients found for the given cart name' });
                 return;
             }
 
-            db.close((dbErr) => {
-                if (dbErr) {
-                    console.error('Error closing database connection');
+            const ingredients = rows.map(row => ({
+                ingredient: row.ingredient,
+                quantity: row.quantity
+            }));
+            db.close((closeErr) => {
+                if (closeErr) {
+                    console.error("Error closing database:", closeErr);
                 }
+                resolve(ingredients);
             });
-
-            resolve(rows);
         });
     });
 }

@@ -1,19 +1,32 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function getReceipts() {
+function getReceipts(email) {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database('./data/database.db');
-
-        db.all('SELECT DISTINCT name FROM cart', (err, rows) => {
+        const db = new sqlite3.Database('./data/database.db', (err) => {
             if (err) {
                 reject(err);
-                db.close();
+                return;
+            }
+        });
+
+        db.all('SELECT DISTINCT name FROM cart WHERE email = ?', [email], (err, rows) => {
+            if (err) {
+                db.close((closeErr) => {
+                    if (closeErr) {
+                        console.error("Error closing database:", closeErr);
+                    }
+                    reject(err);
+                });
                 return;
             }
 
             const receipts = rows.map(row => row.name);
-            resolve(receipts);
-            db.close();
+            db.close((closeErr) => {
+                if (closeErr) {
+                    console.error("Error closing database:", closeErr);
+                }
+                resolve(receipts);
+            });
         });
     });
 }

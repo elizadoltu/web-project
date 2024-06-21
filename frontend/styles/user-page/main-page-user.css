@@ -17,7 +17,7 @@
 #icon-menu {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(217, 219, 222, 0.2);
+    background-color: #18181A;
     border-radius: 20px;
     padding: 12px; 
     position: fixed; 

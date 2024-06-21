@@ -4,7 +4,7 @@ function addNewCart(cartName, email) {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database('./data/database.db');
 
-        db.get('SELECT * FROM cart WHERE name = ?', [cartName], (err, row) => {
+        db.get('SELECT * FROM cart WHERE name = ? AND email = ?', [cartName, email], (err, row) => {
             if (err) {
                 reject(err);
                 return;

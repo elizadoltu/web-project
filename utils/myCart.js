@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetchAvailableReceipts();
   const email = getCookie('rememberedEmail');
+  fetchAvailableReceipts(email);
 
   document.getElementById("new-cart-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const newCartName = document.getElementById("new-cart-name").value.trim();
     if (newCartName) {
-      addNewCart(newCartName, email); // Pass email parameter here
+      addNewCart(newCartName, email); 
       document.getElementById("new-cart-name").value = "";
     }
   });
@@ -25,11 +25,11 @@ function getCookie(name) {
 
 function addNewCart(cartName, email) {
   fetch("http://localhost:3002/api/addReceipt", {
-    method: "PUT",  // or "POST" depending on server expectation
+    method: "PUT",  
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ cartName: cartName, email: email })  // Include email parameter
+    body: JSON.stringify({ cartName: cartName, email: email })  
   })
   .then((response) => {
     if (!response.ok) {
@@ -39,15 +39,21 @@ function addNewCart(cartName, email) {
   })
   .then((data) => {
     console.log("Cart added successfully:", data);
-    fetchAvailableReceipts();
+    fetchAvailableReceipts(email);
   })
   .catch((error) => {
     console.error("Error adding new cart:", error);
   });
 }
 
-function fetchAvailableReceipts() {
-  fetch("http://localhost:3002/api/receipts")
+function fetchAvailableReceipts(email, ingredientList) {
+  fetch("http://localhost:3002/api/receipts", {
+    method: "POST",
+    headers: {
+      "Content-Type" : "application/json",
+    },
+    body: JSON.stringify({ email: email, ingredients: ingredientList }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -62,7 +68,7 @@ function fetchAvailableReceipts() {
         const receiptButton = document.createElement("button");
         receiptButton.classList.add("receipt-item");
         receiptButton.textContent = receipt;
-        receiptButton.addEventListener("click", () => displayReceiptDetails(receipt));
+        receiptButton.addEventListener("click", () => displayReceiptDetails(receipt, email));
         receiptList.appendChild(receiptButton);
       });
     })
@@ -71,8 +77,8 @@ function fetchAvailableReceipts() {
     });
 }
 
-function displayReceiptDetails(receiptId) {
-  fetch(`http://localhost:3002/api/getIngredients?name=${receiptId}`)
+function displayReceiptDetails(receiptId, email) {
+  fetch(`http://localhost:3002/api/getIngredients?name=${encodeURIComponent(receiptId)}&email=${encodeURIComponent(email)}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

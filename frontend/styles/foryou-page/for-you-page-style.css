@@ -29,7 +29,7 @@
 #icon-menu {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(217, 219, 222, 0.2);
+    background-color: #18181A;
     border-radius: 20px;
     padding: 12px; 
     position: fixed; 
@@ -125,10 +125,11 @@
 }
 
 .carousel-panel {
-    display: flex;
-    flex-wrap: nowrap; 
-    scroll-behavior: smooth; 
-    transition: transform 0.5s ease-in-out; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
 }
 
 .carousel-item {
@@ -173,22 +174,22 @@
 
 #carousel-left-arrow,
 #carousel-right-arrow {
-    z-index: 1; /* Ensure the arrows are above other elements */
-    position: absolute; /* Position the arrows */
-    top: 50%; /* Position vertically centered */
-    transform: translateY(-50%); /* Offset vertically */
-    font-size: 2rem; /* Adjust arrow size */
-    padding: 10px; /* Add padding */
-    color: #ccc; /* Arrow color */
+    z-index: 1; 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 2rem;
+    padding: 10px;
+    color: #ccc; 
 }
 
 #carousel-left-arrow {
-    left: 10px; /* Position the left arrow */
+    left: 10px; 
 }
 
 #carousel-right-arrow {
     filter: none;
-    right: 10px; /* Position the right arrow */
+    right: 10px; 
 }
 
 section {

@@ -34,7 +34,7 @@ const apiRoutes = {
       });
       req.on("end", () => {
         try {
-          const { cartName, ingredients } = JSON.parse(body);
+          const { cartName, ingredients, email } = JSON.parse(body);
 
           if (!cartName || typeof cartName !== "string") {
             res.writeHead(400, { "Content-Type": "application/json" });
@@ -53,7 +53,7 @@ const apiRoutes = {
           }
 
           const promises = ingredients.map(({ ingredient }) =>
-            addToCart(ingredient, cartName)
+            addToCart(ingredient, cartName, email)
           );
 
           Promise.all(promises)
@@ -81,28 +81,44 @@ const apiRoutes = {
   },
 
   "/api/receipts": (req, res) => {
-    if (req.method === "GET") {
-      getReceipts()
-        .then((receipts) => {
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ receipts }));
-        })
-        .catch((error) => {
-          console.error("Error fetching receipts:", error);
-          res.writeHead(500, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Not found" }));
-        });
+    if (req.method === "POST") {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      
+      req.on('end', () => {
+        try {
+          const { email, ingredients } = JSON.parse(body);
+          
+          getReceipts(email) 
+            .then((receipts) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ receipts }));
+            })
+            .catch((error) => {
+              console.error("Error fetching receipts:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Error fetching receipts" }));
+            });
+        } catch (error) {
+          console.error("Error parsing request body:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid request body" }));
+        }
+      });
     } else {
-      res.writeHead(404, { "Content-Type": "application" });
+      res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not found" }));
     }
   },
   "/api/getIngredients": (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const cartName = url.searchParams.get("name");
+    const email = url.searchParams.get("email");
 
-    if (req.method === "GET" && cartName) {
-      getIngredients(cartName)
+    if (req.method === "GET" && cartName && email) {
+      getIngredients(cartName, email)
         .then((ingredients) => {
           res.writeHead(200, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ ingredients }));
@@ -110,11 +126,11 @@ const apiRoutes = {
         .catch((error) => {
           console.error("Error fetching ingredients:", error);
           res.writeHead(500, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Not found" }));
+          res.end(JSON.stringify({ error: "Failed to fetch ingredients" }));
         });
     } else {
       res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Not found" }));
+      res.end(JSON.stringify({ error: "Not Found" }));
     }
   },
   "/api/addReceipt": (req, res) => {

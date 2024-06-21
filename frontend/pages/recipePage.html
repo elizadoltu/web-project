@@ -82,19 +82,15 @@
       <p id="recipe-preparation">Loading recipe preparation...</p>
     </div>
     <div id="button-container">
-      <button id="add-to-cart-button">
-        <span class="material-symbols-outlined"> shopping_cart </span> Add To
-        Cart
-      </button>
+      <div class="receipts-container">
+        <h2 class="receipts-title">Receipts</h2>
+        <div class="receipt-list" id="receipt-list">
+          <!-- Receipts will be populated dynamically -->
+        </div>
+      </div>
       <button id="save-button">
         <span class="material-symbols-outlined"> bookmark </span> Save
       </button>
-    </div>
-    <div class="receipts-container">
-      <h2>Receipts</h2>
-      <div class="receipt-list" id="receipt-list">
-        <!-- Receipts will be populated dynamically -->
-      </div>
     </div>
     <script src="/scripts/openAnotherPages.js"></script>
     <script src="/utils/fetchRecipeDetails.js"></script>

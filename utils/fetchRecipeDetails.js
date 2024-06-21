@@ -1,40 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const recipeName = urlParams.get("name");
+  const email = getCookie('rememberedEmail');
 
   if (recipeName) {
-    fetchRecipeDetails(recipeName);
+    fetchRecipeDetails(recipeName, email);
   } else {
     document.getElementById("recipe-title").textContent =
       "No recipe name provided";
     document.getElementById("recipe-description").textContent = "";
     document.getElementById("recipe-preparation").textContent = "";
-    fetchAvailableReceipts([]); 
+    fetchAvailableReceipts(email, []); 
   }
 
-  // Add event listener for Add to Cart button
   const addToCartButton = document.getElementById("add-to-cart-button");
   addToCartButton.addEventListener("click", () => {
     const ingredientList = Array.from(
       document.querySelectorAll(".ingredients-list p")
     ).map((p) => {
       const text = p.textContent.trim();
-      const quantity = text.match(/\d+(\s+\d+\/\d+)?/)[0]; // Extract quantity using regex
-      const ingredient = text.replace(quantity, "").trim(); // Extract ingredient
+      const quantity = text.match(/\d+(\s+\d+\/\d+)?/)[0]; 
+      const ingredient = text.replace(quantity, "").trim(); 
       return { ingredient, quantity };
     });
 
     const selectedReceipt = document.querySelector(".receipt-item.selected");
     const cartName = selectedReceipt ? selectedReceipt.textContent.trim() : "";
     if (cartName) {
-      addToCartAPIRequest(cartName, recipeName, ingredientList);
+      addToCartAPIRequest(cartName, recipeName, ingredientList, email);
     } else {
       console.error("No receipt selected to add to cart.");
     }
   });
 });
 
-function fetchRecipeDetails(recipeName) {
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+function fetchRecipeDetails(recipeName, email) {
   fetch(`http://localhost:3002/api/recipe?name=${recipeName}`)
     .then((response) => {
       if (!response.ok) {
@@ -69,15 +80,21 @@ function fetchRecipeDetails(recipeName) {
         quantity: ingredient.quantity
       }));
 
-      fetchAvailableReceipts(ingredientList);
+      fetchAvailableReceipts(email, ingredientList);
     })
     .catch((error) => {
       console.error("Error fetching recipe:", error);
     });
 }
 
-function fetchAvailableReceipts(ingredientList) {
-  fetch("http://localhost:3002/api/receipts")
+function fetchAvailableReceipts(email, ingredientList) {
+  fetch("http://localhost:3002/api/receipts", {
+    method: "POST",
+    headers: {
+      "Content-Type" : "application/json",
+    },
+    body: JSON.stringify({ email: email, ingredients: ingredientList }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -99,7 +116,7 @@ function fetchAvailableReceipts(ingredientList) {
           }
           receiptButton.classList.add("selected");
 
-          addToCartAPIRequest(receipt, ingredientList);
+          addToCartAPIRequest(receipt, ingredientList, email);
         });
         receiptList.appendChild(receiptButton);
       });
@@ -109,13 +126,13 @@ function fetchAvailableReceipts(ingredientList) {
     });
 }
 
-function addToCartAPIRequest(cartName, ingredients) {
+function addToCartAPIRequest(cartName, ingredients, email) {
   fetch("http://localhost:3002/api/addToCart", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ cartName, ingredients })
+    body: JSON.stringify({ cartName, ingredients, email })
   })
   .then(response => {
     if (!response.ok) {

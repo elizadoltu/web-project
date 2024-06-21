@@ -100,6 +100,7 @@
 }
 
 #button-container {
+    display: flex;
     margin-left: 8%;
     margin-top: 4%;
     margin-bottom: 4%;
@@ -116,13 +117,43 @@
 
 #add-to-cart-button,
 #save-button {
+    position: absolute;
     border: none;
     font-size: 2em;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
-    padding: 10px 20px;
+    padding:10px 10px;
     cursor: pointer;
     border: 1px solid var(--font-color);
-    border-radius: 20px;
+    border-radius: 15px;
     margin-right: 2%;
+}
+
+.receipts-title {
+    color: var(--font-color);
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+}
+
+.receipts-container {
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+.receipt-item {
+    border: none;
+    font-size: 1.2em;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    padding:10px 10px;
+    cursor: pointer;
+    border: 1px solid var(--font-color);
+    border-radius: 10px;
+    margin-right: 2%;
+    margin-top: 10px;
+}
+
+#receipt-list {
+    display: flex;
+    flex-direction: column;
 }
