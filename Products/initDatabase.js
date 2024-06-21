@@ -13,14 +13,6 @@ if (!fs.existsSync(path.join(__dirname, 'data'))) {
 
 const db = new sqlite3.Database(dbPath);
 
-const createUsersTable = `
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
-    )
-`;
 
 const createCartTable = `
     CREATE TABLE IF NOT EXISTS cart (
@@ -63,9 +55,6 @@ const insertUsers = [
 
 
 db.serialize(() => {
-    db.run(createUsersTable, err => {
-        if (err) console.error('Error creating users table:', err.message);
-    });
 
     insertUsers.forEach(user => {
         const { username, email, password } = user;
@@ -73,10 +62,6 @@ db.serialize(() => {
         db.run(sql, [username, email, password], err => {
             if (err) console.error('Error inserting user:', err.message);
         });
-    });
-
-    db.run('DROP TABLE IF EXISTS cart', err => {
-        if (err) console.error('Error dropping cart table:', err.message);
     });
 
     db.run(createCartTable, err => {

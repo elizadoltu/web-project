@@ -21,14 +21,6 @@ const createUsersTable = `
     )
 `;
 
-const createBarcodesTable = `
-    CREATE TABLE IF NOT EXISTS barcodes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        barcode INTEGER UNIQUE,
-        productName TEXT NOT NULL UNIQUE
-    )
-`;
-
 const createAllergiesTable = `
     CREATE TABLE IF NOT EXISTS user_allergies (
         email TEXT PRIMARY KEY,
@@ -90,13 +82,6 @@ db.serialize(() => {
         });
     });
 
-    db.run('DROP TABLE IF EXISTS cart', (err) => {
-        if (err) {
-            console.error('Error dropping cart table: ', err.message);
-        } else {
-            console.log('Cart table dropped successfully');
-        }
-    });
 
     db.run('DROP TABLE IF EXISTS barcodes', (err) => {
         if (err) {
@@ -106,33 +91,6 @@ db.serialize(() => {
         }
     });
 
-    db.run(createBarcodesTable, (err) => {
-        if (err) {
-            console.error('Error creating barcodes table:', err.message);
-        } else {
-            console.log('Barcodes table created successfully');
-        }
-    });
-
-    barcodesData.forEach(product => {
-        const { barcode, productName } = product;
-        const sql = `INSERT INTO barcodes (barcode, productName) VALUES (?, ?)`;
-        db.run(sql, [barcode, productName], (err) => {
-            if (err) {
-                console.error('Error inserting product:', err.message);
-            } else {
-                console.log(`Product ${productName} with barcode ${barcode} inserted successfully`);
-            }
-        });
-    });
-
-    db.run('DROP TABLE IF EXISTS recipes', (err) => {
-        if (err) {
-            console.error("Error dropping recipes table:", err.message);
-        } else {
-            console.log('Recipes table was dropped');
-        }
-    });
 
     db.close((err) => {
         if (err) {
