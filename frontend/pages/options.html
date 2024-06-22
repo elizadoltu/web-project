@@ -42,7 +42,8 @@
         <div id="options-allergies">Allergies</div>
         <div id="user-allergies"></div> <!-- Container to display allergies -->
 
-        <button class="statistics-button">Send statistics</button>
+        <button class="statistics-button" id="download-csv">Download CSV</button>
+        <button class="statistics-button" id="download-pdf">Download PDF</button>
       </div>
       <img class="platou-options" src="/frontend/images/png/platou.png" alt="platou image">
     </div>
@@ -142,6 +143,17 @@
 
       document.querySelector('.vegan-button').addEventListener('click', function() {
           updateDietaryPreference('vegan');
+      });
+
+      // Download Statistics
+      document.getElementById('download-csv').addEventListener('click', function() {
+          const email = getCookie('rememberedEmail');
+          window.location.href = `/api/generateCSV?email=${encodeURIComponent(email)}`;
+      });
+
+      document.getElementById('download-pdf').addEventListener('click', function() {
+          const email = getCookie('rememberedEmail');
+          window.location.href = `/api/generatePDF?email=${encodeURIComponent(email)}`;
       });
   </script>
 </body>

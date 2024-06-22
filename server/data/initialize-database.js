@@ -2,13 +2,21 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('server/data/database.db');
 const barcodesData = require('./json/barcodes.json');
 
-/*db.run('DROP TABLE IF EXISTS cart', (err) => {
+db.run('DROP TABLE IF EXISTS cart', (err) => {
    if (err) {
       console.error('Error dropping cart table: ', err.message);
     } else {
         console.log('Cart table dropped successfully');
     }
-});*/
+});
+
+/*db.run('DROP TABLE IF EXISTS users', (err) => {
+    if (err) {
+       console.error('Error dropping users table: ', err.message);
+     } else {
+         console.log('users table dropped successfully');
+     }
+ });*/
 
 const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
@@ -17,7 +25,8 @@ const createUsersTable = `
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
         vegan BOOLEAN NOT NULL DEFAULT FALSE,
-        vegetarian BOOLEAN NOT NULL DEFAULT FALSE
+        vegetarian BOOLEAN NOT NULL DEFAULT FALSE,
+        banned BOOLEAN NOT NULL DEFAULT FALSE -- New column for banning users
     )
 `;
 
@@ -35,21 +44,24 @@ const insertUsers = [
         email: 'user1@example.com',
         password: 'password1',
         vegan: false,
-        vegetarian: true
+        vegetarian: true,
+        banned: false
     },
     {
         username: 'user2',
         email: 'user2@example.com',
         password: 'password2',
         vegan: true,
-        vegetarian: false
+        vegetarian: false,
+        banned: false
     },
     {
         username: 'user3',
         email: 'user3@example.com',
         password: 'password3',
         vegan: false,
-        vegetarian: false
+        vegetarian: false,
+        banned: false
     }
 ];
 

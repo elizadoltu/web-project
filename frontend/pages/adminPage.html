@@ -1,87 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/frontend/global.css" />
-    <link rel="stylesheet" href="/frontend/styles/custom-variables.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <link
-      rel="stylesheet"
-      href="/frontend/styles/admin-page/admin-page-style.css"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flavorfolio</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/frontend/global.css" />
+  <link rel="stylesheet" href="/frontend/styles/custom-variables.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <link
+    rel="stylesheet"
+    href="/frontend/styles/admin-page/admin-page-style.css"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flavorfolio</title>
+</head>
+<body id="body-admin-page">
+  <section class="admin-app-container">
+    <div class="app-name-logo-container">
+      <span id="official-logo" class="material-symbols-outlined">
+        soup_kitchen
+      </span>
+      <h1 class="app-name">Flavorfolio</h1>
+    </div>
+    <div id="list-of-users">List of users</div>
+    <div id="horizontal-line"></div>
+    <div id="arrow-nav-back">&#8592;</div>
+    <div class="user-list" id="user-list">
+      <!-- Users will be dynamically inserted here -->
+    </div>
+    <img class="fries-admin" src="/frontend/images/png/fries-admin.png" alt="fries image">
+  </section>
 
-  <body id="body-admin-page">
-    <section class="admin-app-container">
-      <div class="app-name-logo-container">
-        <span id="official-logo" class="material-symbols-outlined">
-          soup_kitchen
-        </span>
-        <h1 class="app-name">Flavorfolio</h1>
-      </div>
-      <div id="list-of-users">List of users</div>
-      <div id="horizontal-line"></div>
-      <div id="arrow-nav-back">&#8592;</div>
-      <div class="user-list">
-        <div class="user">
-          <span class="username">User 1</span>
-          <button class="ban-button">Ban</button>
-          <button class="ban-button">Unban</button>
+  <script src="/scripts/openAnotherPages.js"></script>
+  <script src="/scripts/navBack.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/api/getUsers', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.users) {
+          const userListContainer = document.getElementById('user-list');
+          userListContainer.innerHTML = ''; // Clear existing content
 
-        </div>
-        <div class="user">
-          <span class="username">User 2</span>
-          <button class="ban-button">Ban</button>
-          <button class="ban-button">Unban</button>
+          data.users.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user');
+            userDiv.innerHTML = `
+              <span class="username">${user.username}</span>
+              <button class="ban-button" data-email="${user.email}">Ban</button>
+              <button class="unban-button" data-email="${user.email}">Unban</button>
+            `;
+            userListContainer.appendChild(userDiv);
+          });
 
-        </div>
-        <div class="user">
-          <span class="username">User 3</span>
-          <button class="ban-button">Ban</button>
-          <button class="ban-button">Unban</button>
+          document.querySelectorAll('.ban-button').forEach(button => {
+            button.addEventListener('click', function() {
+              const email = this.getAttribute('data-email');
+              fetch('/api/banUser', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.message) {
+                  alert(data.message);
+                } else {
+                  alert('Error banning user: ' + data.error);
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+            });
+          });
 
-        </div>
-        <div class="user">
-          <span class="username">User 4</span>
-          <button class="ban-button">Ban</button>
-          <button class="ban-button">Unban</button>
-
-        </div>
-        <div class="user">
-          <span class="username">User 5</span>
-          <button class="ban-button">Ban</button>
-          <button class="ban-button">Unban</button>
-
-          <div class="user">
-            <span class="username">User 6</span>
-            <button class="ban-button">Ban</button>
-            <button class="ban-button">Unban</button>
-
-          </div>
-          <div class="user">
-            <span class="username">User 7</span>
-            <button class="ban-button">Ban</button>
-            <button class="ban-button">Unban</button>
-
-          </div>
-          <div class="user">
-            <span class="username">User 8</span>
-            <button class="ban-button">Ban</button>
-            <button class="ban-button">Unban</button>
-
-          </div>
-      </div>
-      </div>
-      <img class="fries-admin" src="/frontend/images/png/fries-admin.png" alt="fries image">
-
-    </section>
-    
-    <script src="/scripts/openAnotherPages.js"></script>
-    <script src="/scripts/navBack.js"></script>
-  </body>
+          document.querySelectorAll('.unban-button').forEach(button => {
+            button.addEventListener('click', function() {
+              const email = this.getAttribute('data-email');
+              fetch('/api/unbanUser', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+              })
+              .then(response => response.json())
+              .then(data => {
+                if (data.message) {
+                  alert(data.message);
+                } else {
+                  alert('Error unbanning user: ' + data.error);
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+            });
+          });
+        } else {
+          console.error('Error fetching users:', data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
 </html>
