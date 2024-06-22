@@ -1,7 +1,6 @@
 const saveRecipe = require("../apis/saveRecipe");
 const getTotalNumberOfSavings = require("../apis/getTotalNumberOfSavings");
 const fetchSavedRecipes = require("../apis/fetchSavedRecipes");
-
 const apiRoutes = {
   "/api/saveRecipe": (req, res) => {
     if (req.method === "PUT") {
@@ -104,7 +103,7 @@ const apiRoutes = {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Not found" }));
   }
-}
+},
 
 };
 
