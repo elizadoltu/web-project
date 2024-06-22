@@ -95,7 +95,7 @@
     margin-top: 20px; 
   }
   
-  .user-list .ban-button, .unban-button {
+  .user-list .ban-button, .unban-button , .delete-button{
     font-size: 0.8em;
     padding: 8px 16px;
     border: none;
@@ -107,12 +107,12 @@
     margin-left: 10px;
   }
   
-  .user-list .ban-button:hover , .unban-button:hover {
+  .user-list .ban-button:hover , .unban-button:hover, .delete-button:hover{
     background-color: #005458;
     transform: scale(1.05);
   }
   
-  .user-list .ban-button:active, .unban-button:active {
+  .user-list .ban-button:active, .unban-button:active, .delete-button:active {
     transform: scale(0.95);
   }
   

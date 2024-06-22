@@ -31,47 +31,6 @@
         <img class="burger-sign-up" src="/frontend/images/png/burger-register.png" alt="burger image">
     </section>
     <script src="/scripts/navBack.js"></script>
-    <script>
-        // Function to set a cookie
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/";
-        }
-
-        document.getElementById('form-sign-up').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const terms = document.getElementById('terms').checked;
-
-            if (!terms) {
-                alert('You must agree to the terms and conditions');
-                return;
-            }
-
-            const userData = { email, username, password };
-
-            fetch('/api/registerUser', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            }).then(response => {
-                if (response.ok) {
-                    alert('Registration successful');
-                    // Set username in a cookie
-                    setCookie('rememberedEmail', email, 15);
-                    setCookie('username', username, 1); // Cookie expires in 1 day
-                    window.location.href = '/frontend/pages/configUserPage.html';
-                } else {
-                    response.text().then(text => alert('Error: ' + text));
-                }
-            });
-        });
-    </script>
+    <script src="/utils/signUpPage.js"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@ const unbanUser = require('../apis/unbanUser');
 const generateCSV = require('../apis/generateCSV');
 const generatePDF = require('../apis/generatePDF');
 const joinGroup = require('../apis/joinGroup');
+const deleteUser = require("../apis/deleteUser");
 
 const apiRoutes = {
     "/api/products": (req, res) => {
@@ -130,7 +131,39 @@ const apiRoutes = {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
         }
+    },
+    "/api/deleteUser": (req, res) => {
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+
+      req.on('end', () => {
+        try {
+          const { email } = JSON.parse(body);
+
+          deleteUser(email)
+            .then(message => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ message }));
+            })
+            .catch(error => {
+              console.error("Error deleting user:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Error deleting user" }));
+            });
+        } catch (error) {
+          console.error("Error parsing request body:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid request body" }));
+        }
+      });
+    } else {
+      res.writeHead(405, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Method Not Allowed" }));
     }
+  }
 };
 
 function handleApiRoutes(req, res) {
