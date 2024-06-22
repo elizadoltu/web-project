@@ -20,7 +20,8 @@ const createCartTable = `
         ingredient TEXT,
         quantity INTEGER,
         name TEXT,
-        email TEXT    
+        email TEXT,
+        groupId INTEGER    
     )
 `;
 
