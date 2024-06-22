@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const recipeName = urlParams.get("name");
   const saveButton = document.querySelector(".save-button");
+  
   if (saveButton) {
     saveButton.addEventListener("click", () => {
       console.log("Save button clicked");
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  fetchSavedRecipes(email);
 });
 
 function saveRecipe(recipeName, email) {
@@ -79,4 +81,47 @@ function getCookie(name) {
     if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
+}
+
+function fetchSavedRecipes(email) {
+  fetch("http://localhost:3003/api/getSavedRecipes", {
+    method: "POST",
+    headers: {
+      "Content-Type" : "application/json",
+    },
+    body: JSON.stringify({ email: email }),
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    const recipesList = document.getElementById("preference-container");
+    recipesList.innerHTML = "";
+
+    data.recipes.forEach((recipe) => {
+      const { recipeName, numberOfSaving } = recipe;
+      const carouselItem = document.createElement("div");
+      carouselItem.classList.add("preference-item");
+
+      carouselItem.innerHTML = `
+        <img src="food-placeholder.jpg" alt="${recipeName}" />
+        <h3><button class="recipe-button" data-recipe="${recipeName}">${recipeName}</button></h3>
+        <p class="saves-count">Saves: <span>${numberOfSaving}</span></p>
+      `;
+
+      recipesList.appendChild(carouselItem); 
+      const recipeButton = carouselItem.querySelector(".recipe-button");
+      recipeButton.addEventListener("click", () => {
+        const clickedRecipeName = recipeButton.getAttribute("data-recipe");
+        window.location.href = `/frontend/pages/recipePage.html?name=${encodeURIComponent(clickedRecipeName)}`;
+      });
+    });
+  })
+  .catch(error => {
+    console.error("Error fetching saved recipes:", error);
+    throw error;
+  });
 }

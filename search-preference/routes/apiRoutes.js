@@ -1,5 +1,6 @@
 const saveRecipe = require("../apis/saveRecipe");
 const getTotalNumberOfSavings = require("../apis/getTotalNumberOfSavings");
+const fetchSavedRecipes = require("../apis/fetchSavedRecipes");
 
 const apiRoutes = {
   "/api/saveRecipe": (req, res) => {
@@ -66,6 +67,37 @@ const apiRoutes = {
         console.error("Error parsing JSON:", error);
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Invalid JSON" }));
+      }
+    });
+  } else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Not found" }));
+  }
+},
+"/api/getSavedRecipes": (req, res) => {
+  if (req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      try {
+        const { email } = JSON.parse(body);
+
+        fetchSavedRecipes(email)
+          .then((recipes) => {
+            res.writeHead(200, { "Content-Type" : "application/json"});
+            res.end(JSON.stringify({ recipes }));
+          })
+          .catch((error) => {
+            console.error("Error fetching receipts:", error);
+            res.writeHead(500, { "Content-Type" : "application/json" });
+            res.end(JSON.stringify({ error: "Error fetching recipes" }));
+          });
+      } catch (error) {
+        console.error("Error  parsing request body:", error);
+        res.end(JSON.stringify({ error: "Invalid request body" }));
       }
     });
   } else {
