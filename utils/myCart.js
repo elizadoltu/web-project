@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const email = getCookie('rememberedEmail');
+  const email = sessionStorage.getItem('rememberedEmail');
   const groupId = getCookie('groupID');
 
   fetchAvailableReceipts(email);

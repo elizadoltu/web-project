@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const email = getCookie('rememberedEmail');
+  const email = sessionStorage.getItem('rememberedEmail');
   const urlParams = new URLSearchParams(window.location.search);
   const recipeName = urlParams.get("name");
   const saveButton = document.querySelector(".save-button");

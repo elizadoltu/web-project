@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return null;
   }
 
-  const email = getCookie('rememberedEmail');
+  const email = sessionStorage.getItem('rememberedEmail');
   if (email) {
     document.getElementById('email').textContent = email;
 

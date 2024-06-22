@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const recipeName = urlParams.get("name");
-  const email = getCookie('rememberedEmail');
+  const email = sessionStorage.getItem('rememberedEmail');
   if (recipeName) {
     fetchRecipeDetails(recipeName, email);
   } else {

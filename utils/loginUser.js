@@ -25,8 +25,8 @@ function deleteCookie(name) {
 
 // Check if the rememberMe cookie exists and redirect if it does
 document.addEventListener('DOMContentLoaded', function() {
-    const rememberedEmail = getCookie('rememberMe');
-    if (rememberedEmail) {
+    const rememberMe = getCookie('rememberMe');
+    if (rememberMe) {
         window.location.href = '/frontend/pages/foryouPage.html';
     }
 });
@@ -46,8 +46,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     .then(response => response.json())
     .then(data => {
         if (data.message === 'Login successful') {
-            deleteCookie('rememberedEmail'); // Delete the existing cookie before setting it
-            setCookie('rememberedEmail', email, 1); // Set cookie for 1 day
+            sessionStorage.setItem('rememberedEmail', email);
 
             if (rememberMe) {
                 setCookie('rememberMe', 'true', 30); // Set cookie for 30 days
