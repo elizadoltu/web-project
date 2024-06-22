@@ -67,6 +67,14 @@
           return null;
       }
 
+      // Function to set a cookie with SameSite and Secure attributes
+      function setCookie(name, value, days) {
+          const date = new Date();
+          date.setTime(date.getTime() + (days*24*60*60*1000));
+          const expires = "expires=" + date.toUTCString();
+          document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=None; Secure`;
+      }
+
       document.addEventListener('DOMContentLoaded', function() {
           const email = getCookie('rememberedEmail');
           if (email) {
@@ -163,6 +171,7 @@
                   body: JSON.stringify({ email, groupId })
               }).then(response => {
                   if (response.ok) {
+                      setCookie('groupID', groupId, 1); // Set groupID cookie for 1 day
                       alert('Joined group successfully');
                   } else {
                       response.text().then(text => alert('Error: ' + text));
