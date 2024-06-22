@@ -24,7 +24,8 @@ const createPreferenceTable = `
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         barcode INTEGER UNIQUE,
         email TEXT,
-        recipeName TEXT
+        recipeName TEXT,
+        numberOfSaving INTEGER
     )
 `;
 

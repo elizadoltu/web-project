@@ -1,4 +1,5 @@
 const saveRecipe = require("../apis/saveRecipe");
+const getTotalNumberOfSavings = require("../apis/getTotalNumberOfSavings");
 
 const apiRoutes = {
   "/api/saveRecipe": (req, res) => {
@@ -42,6 +43,37 @@ const apiRoutes = {
       res.end(JSON.stringify({ error: "Not found" }));
     }
   },
+  "/api/getTotalSavings": (req, res) => {
+  if (req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+    req.on("end", () => {
+      try {
+        const { recipeName } = JSON.parse(body);
+        getTotalNumberOfSavings(recipeName)
+          .then((totalSaving) => {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ recipeName, totalSaving }));
+          })
+          .catch((error) => {
+            console.error("Error getting total savings:", error);
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Failed to get total savings" }));
+          });
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Invalid JSON" }));
+      }
+    });
+  } else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Not found" }));
+  }
+}
+
 };
 
 function handleApiRoutes(req, res) {

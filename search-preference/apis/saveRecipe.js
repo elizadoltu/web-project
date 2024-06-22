@@ -4,7 +4,7 @@ function saveRecipe(recipeName, email) {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database('./data/database.db');
         const checkSql = `SELECT COUNT(*) as count FROM userPreference WHERE recipeName = ? AND email = ?`;
-        const insertSql = `INSERT INTO userPreference (recipeName, email) VALUES (?, ?)`;
+        const insertSql = `INSERT INTO userPreference (recipeName, email, numberOfSaving) VALUES (?, ?, 1)`;
 
         db.get(checkSql, [recipeName, email], (err, row) => {
             if (err) {
@@ -23,7 +23,7 @@ function saveRecipe(recipeName, email) {
                     return reject(err);
                 }
 
-                resolve({ message: 'Recipe successfully added.', recipeName, email, id:this.lastID });
+                resolve({ message: 'Recipe successfully added.', recipeName, email, id: this.lastID });
                 db.close();
             });
         });
