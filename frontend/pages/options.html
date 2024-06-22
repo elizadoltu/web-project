@@ -35,6 +35,11 @@
             <label for="new-password" id="options-password">Password</label>
             <input type="password" id="new-password" placeholder="New Password" />
         </div>
+        <div class="form-group">
+            <label for="group-id" id="group-id-label">Join Group</label>
+            <input type="text" id="group-id" placeholder="Enter 4-digit Group ID" maxlength="4" />
+        </div>
+        <button id="join-group-button" type="button" class="submit-button">Join Group</button>
         <button id="update-button" type="button" class="submit-button">Submit</button>
         <button class="vegetarian-button">Vegetarian</button>
         <button class="vegan-button">Vegan</button>
@@ -42,7 +47,8 @@
         <div id="options-allergies">Allergies</div>
         <div id="user-allergies"></div> <!-- Container to display allergies -->
 
-        <button class="statistics-button">Send statistics</button>
+        <button class="statistics-button" id="download-csv">Download CSV</button>
+        <button class="statistics-button" id="download-pdf">Download PDF</button>
       </div>
       <img class="platou-options" src="/frontend/images/png/platou.png" alt="platou image">
     </div>
@@ -142,6 +148,42 @@
 
       document.querySelector('.vegan-button').addEventListener('click', function() {
           updateDietaryPreference('vegan');
+      });
+
+      // Join Group Script
+      document.getElementById('join-group-button').addEventListener('click', function() {
+          const groupId = document.getElementById('group-id').value;
+          if (groupId.length === 4 && !isNaN(groupId)) {
+              const email = getCookie('rememberedEmail');
+              fetch('/api/joinGroup', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ email, groupId })
+              }).then(response => {
+                  if (response.ok) {
+                      alert('Joined group successfully');
+                  } else {
+                      response.text().then(text => alert('Error: ' + text));
+                  }
+              }).catch(error => {
+                  console.error('Error:', error);
+              });
+          } else {
+              alert('Please enter a valid 4-digit group ID');
+          }
+      });
+
+      // Download Statistics
+      document.getElementById('download-csv').addEventListener('click', function() {
+          const email = getCookie('rememberedEmail');
+          window.location.href = `/api/generateCSV?email=${encodeURIComponent(email)}`;
+      });
+
+      document.getElementById('download-pdf').addEventListener('click', function() {
+          const email = getCookie('rememberedEmail');
+          window.location.href = `/api/generatePDF?email=${encodeURIComponent(email)}`;
       });
   </script>
 </body>

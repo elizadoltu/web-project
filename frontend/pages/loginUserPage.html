@@ -14,13 +14,13 @@
         <div class="form-container">
             <form class="form-sign-up" id="login-form">
                 <input type="text" id="email" name="email" placeholder="Email" required>
-            <br>
+                <br>
                 <input type="password" id="password" name="password" placeholder="Password" required>
-            <br>
-            <div class="terms-container">
-                <input type="checkbox" id="terms" name="terms">
-                <label for="terms">Remember Me.</label>
-            </div>
+                <br>
+                <div class="terms-container">
+                    <input type="checkbox" id="terms" name="terms">
+                    <label for="terms">Remember Me.</label>
+                </div>
                 <button id="continue-button-user" class="continue-button" type="submit">Continue</button>
             </form>
         </div>
@@ -31,9 +31,9 @@
     <script src="/scripts/navBack.js"></script>
     <script>
         // Function to set a cookie
-        function setCookie(name, value, minutes) {
+        function setCookie(name, value, days) {
             const date = new Date();
-            date.setTime(date.getTime() + (minutes * 60 * 1000));
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
             const expires = "expires=" + date.toUTCString();
             document.cookie = name + "=" + value + ";" + expires + ";path=/";
         }
@@ -42,7 +42,7 @@
         function getCookie(name) {
             const nameEQ = name + "=";
             const ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
+            for (let i = 0; i < ca.length; i++) {
                 let c = ca[i];
                 while (c.charAt(0) === ' ') c = c.substring(1, c.length);
                 if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
@@ -50,9 +50,9 @@
             return null;
         }
 
-       //  Check if the email cookie exists and redirect if it does
+        // Check if the rememberMe cookie exists and redirect if it does
         document.addEventListener('DOMContentLoaded', function() {
-            const rememberedEmail = getCookie('rememberedEmail');
+            const rememberedEmail = getCookie('rememberMe');
             if (rememberedEmail) {
                 window.location.href = '/frontend/pages/foryouPage.html';
             }
@@ -73,10 +73,13 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'Login successful') {
+                    setCookie('rememberedEmail', email, 1); // Set cookie for 1 day
+
                     if (rememberMe) {
-                        setCookie('rememberedEmail', email, 15); // Set cookie for 15 minutes
+                        setCookie('rememberMe', 'true', 30); // Set cookie for 30 days
                     }
-                    window.location.href = '/frontend/pages/foryouPage.html'; // Redirect to the for you page
+
+                    window.location.href = '/frontend/pages/foryouPage.html'; 
                 } else {
                     alert(data.message);
                 }

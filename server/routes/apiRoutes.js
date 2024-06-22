@@ -6,6 +6,12 @@ const addUserAllergy = require('../apis/userAllergies');
 const getUserInfo = require('../apis/getUserInfo'); 
 const getUserAllergies = require('../apis/getUserAllergies'); 
 const updateDietaryPreference = require('../apis/updateDietaryPreference'); 
+const getUsers = require('../apis/getUsers');
+const banUser = require('../apis/banUser'); 
+const unbanUser = require('../apis/unbanUser'); 
+const generateCSV = require('../apis/generateCSV');
+const generatePDF = require('../apis/generatePDF');
+const joinGroup = require('../apis/joinGroup');
 
 const apiRoutes = {
     "/api/products": (req, res) => {
@@ -72,6 +78,54 @@ const apiRoutes = {
     '/api/updateDietaryPreference': (req, res) => { 
         if (req.method === 'POST') {
             updateDietaryPreference(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/getUsers': (req, res) => { 
+        if (req.method === 'GET') {
+            getUsers(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/banUser': (req, res) => { // Add this route
+        if (req.method === 'POST') {
+            banUser(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/unbanUser': (req, res) => { // Add this route
+        if (req.method === 'POST') {
+            unbanUser(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/generateCSV': (req, res) => {
+        if (req.method === 'GET') {
+            generateCSV(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/generatePDF': (req, res) => {
+        if (req.method === 'GET') {
+            generatePDF(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/joinGroup': (req, res) => { 
+        if (req.method === 'POST') {
+            joinGroup(req, res);
         } else {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));

@@ -32,9 +32,17 @@ function loginUser(req, res) {
                 console.error('Database error:', err);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Error logging in' }));
-            } else if (row && await bcrypt.compare(password, row.password)) {
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'Login successful', user: row }));
+            } else if (row) {
+                if (row.banned) {
+                    res.writeHead(403, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Your account is banned' }));
+                } else if (await bcrypt.compare(password, row.password)) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Login successful', user: row }));
+                } else {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Invalid email/username or password' }));
+                }
             } else {
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Invalid email/username or password' }));
