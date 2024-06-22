@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(button => {
         button.addEventListener('click', function() {
             const allergy = this.textContent;
-            const email = getCookie('rememberedEmail'); 
+            const email = sessionStorage.getItem('rememberedEmail');
 
             fetch('/api/addUserAllergy', {
                 method: 'POST',
