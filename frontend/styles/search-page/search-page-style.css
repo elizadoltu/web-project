@@ -1,293 +1,80 @@
-#body-search-page {
-    overflow-y: scroll;
-}
-
-.app-name-logo-container {
-    position: absolute;
+body {
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    top: -5%;
-    left: 25%;
-}
-
-.material-symbols-outlined {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 48;
-}
-
-#official-logo {
-    color: white;
-    font-size: 8em;
-}
-
-.search-app-container {
-    width: 100vh;
     height: 100vh;
-}
-
-.app-name {
-    font-family: 'Truecolor Personal Use Regular', sans-serif; 
-    font-size: 6em;
-    color: var(--font-color);
-}
-
-.search-bar {
-    margin-top: 15%; 
-    margin-left: 33.5%;
-}
-
-#search-bar {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
-    width: 300px; 
-}
-
-#search-button {
-    padding: 10px 20px;
-    background-color: #002B2A; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 10px; 
-}
-
-#search-button:hover {
-    background-color: #005251; 
-}
-
-
-.search-category {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+  }
+  
+  .search-body-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .app-name-logo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px; /* Adjust the margin between search categories and carousels */
-}
-
-#carousel-container {
+    margin-bottom: 20px;
+  }
+  
+  .app-name-logo-container span {
+    font-size: 50px;
+    color: #ff5722;
+  }
+  
+  .app-name-logo-container h1 {
+    font-size: 36px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .search-bar {
     display: flex;
     justify-content: center;
-    width: 100%; /* Adjust the width to fit the content */
-    margin-top: 20px; /* Add margin between carousel containers */
-    position: relative; /* Position relative for absolute positioning within */
-}
-
-.carousel-arrow {
-    cursor: pointer; 
-    font-size: 2rem; 
-    padding: 10px; 
-    color: #ccc; 
-}
-
-.carousel-panel {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto; /* Allow horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Snap scrolling to items */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-    padding: 10px; /* Add padding to separate items */
-}
-
-.carousel-item {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    margin: 10px; 
-    width: 200px; 
-    height: 200px; 
-    background-color: #fff; 
-    border-radius: 5px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    background-color: #4caf50; /* Green color */
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
-    z-index: 1;
-}
-
-.carousel-item img {
-    width: 100%; 
-    height: 150px; 
-    object-fit: cover;
-}
-
-.carousel-side-panel {
+  }
+  
+  .search-bar button:hover {
+    background-color: #388e3c; /* Darker green */
+  }
+  
+  #icon-menu {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    position: absolute; 
-    top: 0; 
-    bottom: 0; 
-    width: 20%; 
-    opacity: 0.7; 
-    transition: opacity 0.5s ease-in-out; 
-}
-
-.carousel-side-panel.active {
-    opacity: 1;
-}
-
-.carousel-side-panel.blurry {
-    filter: blur(5px); 
-}
-
-#carousel-left-arrow,
-#carousel-right-arrow {
-    z-index: 1; /* Ensure the arrows are above other elements */
-    position: absolute; /* Position the arrows */
-    top: 50%; /* Position vertically centered */
-    transform: translateY(-50%); /* Offset vertically */
-    font-size: 2rem; /* Adjust arrow size */
-    padding: 10px; /* Add padding */
-    color: #ccc; /* Arrow color */
-}
-
-#carousel-left-arrow {
-    left: 10px; /* Position the left arrow */
-}
-
-#carousel-right-arrow {
-    filter: none;
-    right: 10px; /* Position the right arrow */
-}
-
-
-.category-ingredients,
-.category-popularity {
-    font-family: 'Truecolor Personal Use Regular', sans-serif;
-    font-size: 2em;
-    color: var(--font-color); /* Match the color to the title */
-    margin-top: 30px; /* Adjust margin for spacing */
-    text-align: center; /* Center the text */
-    text-transform: uppercase; /* Convert text to uppercase */
-    letter-spacing: 2px; /* Add letter spacing for emphasis */
-}
-
-.category-ingredients:before,
-.category-popularity:before {
-    content: "";
-    display: block;
-    width: 100px;
-    height: 3px;
-    background-color: var(--font-color);; 
-    margin: 0 auto 20px; 
-}
-
-#carousel-container-2 {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* Adjust the width to fit the content */
-    margin-top: 20px; /* Add margin between carousel containers */
-    position: relative; /* Position relative for absolute positioning within */
-}
-
-.carousel-arrow-2 {
-    cursor: pointer; 
-    font-size: 2rem; 
-    padding: 10px; 
-    color: #ccc; 
-}
-
-.carousel-panel-2 {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto; /* Allow horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Snap scrolling to items */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
-    padding: 10px; /* Add padding to separate items */
-}
-
-.carousel-item-2 {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    margin: 10px; 
-    width: 200px; 
-    height: 200px; 
-    background-color: #fff; 
-    border-radius: 5px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  #icon-menu span {
+    font-size: 30px;
     cursor: pointer;
-    z-index: 1;
-}
-
-.carousel-item-2 img {
-    width: 100%; 
-    height: 150px; 
-    object-fit: cover;
-}
-
-.carousel-side-panel-2 {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    position: absolute; 
-    top: 0; 
-    bottom: 0; 
-    width: 20%; 
-    opacity: 0.7; 
-    transition: opacity 0.5s ease-in-out; 
-}
-
-.carousel-side-panel.active {
-    opacity: 1;
-}
-
-.carousel-side-panel.blurry {
-    filter: blur(5px); 
-}
-
-#carousel-left-arrow-2,
-#carousel-right-arrow-2 {
-    z-index: 1; /* Ensure the arrows are above other elements */
-    position: absolute; /* Position the arrows */
-    top: 50%; /* Position vertically centered */
-    transform: translateY(-50%); /* Offset vertically */
-    font-size: 2rem; /* Adjust arrow size */
-    padding: 10px; /* Add padding */
-    color: #ccc; /* Arrow color */
-}
-
-#carousel-left-arrow-2 {
-    left: 10px; /* Position the left arrow */
-}
-
-#carousel-right-arrow-2 {
-    filter: none;
-    right: 10px; /* Position the right arrow */
-}
-
-
-#icon-menu {
-    display: flex;
-    z-index: 1;
-    justify-content: space-between;
-    background-color: #18181A;
-    border-radius: 20px;
-    padding: 12px; 
-    position: fixed; 
-    bottom: 20px;
-    color: var(--font-color); 
-    border: 1px solid var(--font-color);
-    left: 50%;
-    transform: translateX(-50%); 
-    width: 22em; 
-}
-
-.material-symbols-outlined {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 48
-}
-
-#icon-menu span {
-    cursor: pointer; 
-    font-size: 2.5em;
-    color: var(--font-color);
-}
+    color: #4caf50; /* Green color */
+  }
+  

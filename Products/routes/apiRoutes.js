@@ -3,6 +3,7 @@ const addToCart = require("../apis/addToCart");
 const getReceipts = require("../apis/getReceipts");
 const getIngredients = require("../apis/getIngredients");
 const addNewCart = require("../apis/addNewCart");
+const searchForRecipe = require('../apis/searchForRecipe');
 
 const apiRoutes = {
   "/api/recipe": (req, res) => {
@@ -178,7 +179,15 @@ const apiRoutes = {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Not Found" }));
     }
-  }
+  },
+  "/api/searchForRecipe": (req, res) => {
+        if (req.method === 'GET') {
+            searchForRecipe(req, res);
+        } else {
+            res.writeHead(405, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Method Not Allowed" }));
+        }
+    }
 };
 
 function handleApiRoutes(req, res) {
