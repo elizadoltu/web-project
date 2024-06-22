@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const email = getCookie('rememberedEmail');
+  const urlParams = new URLSearchParams(window.location.search);
+  const recipeName = urlParams.get("name");
+  const saveButton = document.querySelector(".save-button");
+  if (saveButton) {
+    saveButton.addEventListener("click", () => {
+      console.log("Save button clicked");
+      saveRecipe(recipeName, email);
+    });
+  } else {
+    console.error("Save button not found");
+  }
 
-  // Fetch and update savings for each recipe item in the carousel
   const carouselItems = document.querySelectorAll(".carousel-item");
   carouselItems.forEach(item => {
     const recipeName = item.querySelector(".recipe-button").getAttribute("data-recipe");
@@ -37,6 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+function saveRecipe(recipeName, email) {
+  fetch("http://localhost:3003/api/saveRecipe", {
+    method: "PUT",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({ recipeName, email })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("Recipe saved to preference: ", data);
+  })
+  .catch(error => {
+    console.error("Error saving the recipe:", error);
+  });
+}
 
 function getCookie(name) {
   const nameEQ = name + "=";
