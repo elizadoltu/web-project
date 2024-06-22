@@ -1,16 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
   const email = getCookie('rememberedEmail');
+  const groupId = getCookie('groupID');
+
   fetchAvailableReceipts(email);
 
-  document.getElementById("new-cart-form").addEventListener("submit", (event) => {
+  document.getElementById("new-cart-form-receipts").addEventListener("submit", (event) => {
     event.preventDefault();
-    const newCartName = document.getElementById("new-cart-name").value.trim();
+    const newCartName = document.getElementById("new-cart-name-receipts").value.trim();
     if (newCartName) {
       addNewCart(newCartName, email); 
+      document.getElementById("new-cart-name-receipts").value = "";
+    }
+  });
+
+  document.getElementById("new-group-cart-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const cartName = document.getElementById("new-cart-name").value;
+    const cartId = document.getElementById("new-group-id").value;
+
+    if (cartName && cartId) {
+      addNewGroupCart(cartName, cartId, email);
       document.getElementById("new-cart-name").value = "";
+      document.getElementById("new-group-id").value = "";
+    } else {
+      console.error("Cart name and ID are required");
+    }
+  });
+  
+  document.getElementById("join-group-receipts-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const joinGroupId = document.getElementById("join-group-id").value.trim();
+    if (joinGroupId) {
+      joinGroupReceipts(joinGroupId, email);
+      document.getElementById("join-group-id").value = "";
     }
   });
 });
+
+function joinGroupReceipts(groupId, email) {
+  fetch("http://localhost:3002/api/joinGroupReceipts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ groupId, email }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Joined group receipts successfully:", data);
+      // Log the entire data object to understand its structure
+      console.log("Response data:", data);
+
+      // Check if data.receipts is defined and is an array
+      if (Array.isArray(data.receipts)) {
+        updateJoinedReceiptList(data.receipts, email);
+      } else {
+        console.error("No receipts found in the response:", data);
+      }
+      
+      fetchAvailableReceipts(email);
+    })
+    .catch(error => {
+      console.error("Error joining group receipts:", error);
+    });
+}
+
+function updateJoinedReceiptList(receipts, email) {
+  const joinedReceiptList = document.getElementById("joined-receipt-list");
+  joinedReceiptList.innerHTML = "";
+
+  receipts.forEach(receipt => {
+    const receiptButton = document.createElement("button");
+    receiptButton.classList.add("receipt-item");
+    receiptButton.textContent = receipt;
+    receiptButton.addEventListener("click", () => {
+      displayReceiptDetails(receipt, email);
+    });
+    joinedReceiptList.appendChild(receiptButton);
+  });
+}
+
+function addNewGroupCart(cartName, groupId, email) {
+  fetch("http://localhost:3002/api/addGroupCart", {
+    method: "PUT",
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({ cartName: cartName, groupId: groupId, email: email })
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Cart added successfully:", data);
+    fetchAvailableReceipts(email);
+  })
+  .catch((error) => {
+    console.error("Error adding new cart:", error);
+  });
+}
 
 function getCookie(name) {
   const nameEQ = name + "=";

@@ -3,6 +3,8 @@ const addToCart = require("../apis/addToCart");
 const getReceipts = require("../apis/getReceipts");
 const getIngredients = require("../apis/getIngredients");
 const addNewCart = require("../apis/addNewCart");
+const addNewGroupCart = require("../apis/addNewGroupCart");
+const joinGroupCart = require("../apis/joinGroupCart");
 const searchForRecipe = require('../apis/searchForRecipe');
 
 const apiRoutes = {
@@ -26,6 +28,93 @@ const apiRoutes = {
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: error.message }));
       });
+  },
+  "/api/joinGroupReceipts": (req, res) => {
+    if (req.method === "POST") {
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+      req.on("end", () => {
+        try {
+          const { groupId, email } = JSON.parse(body);
+
+          if (!groupId || typeof groupId !== "string" || !email || typeof email !== "string") {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                error: "groupId and email are required and must be strings",
+              })
+            );
+            return;
+          }
+
+          joinGroupCart(groupId, email)
+            .then((result) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(result));
+            })
+            .catch((error) => {
+              console.error("Error joining group receipts:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Failed to join group receipts" }));
+            });
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid JSON" }));
+        }
+      });
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+    }
+  },
+  "/api/addGroupCart": (req, res) => {
+    if (req.method === "POST" || req.method === "PUT") {
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+      req.on("end", () => {
+        try {
+          const { cartName, groupId ,email } = JSON.parse(body);
+
+          if (!cartName || typeof cartName !== "string" || !email || typeof email !== "string") {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                error: "cartName and email are required and must be strings",
+              })
+            );
+            return;
+          }
+
+          addNewGroupCart(cartName,groupId ,email)
+            .then((result) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(
+                JSON.stringify({
+                  message: "Receipt added successfully",
+                  receipt: result,
+                })
+              );
+            })
+            .catch((error) => {
+              console.error("Error adding receipt:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Failed to add receipt" }));
+            });
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid JSON" }));
+        }
+      });
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+    }
   },
   "/api/addToCart": (req, res) => {
     if (req.method === "PUT") {

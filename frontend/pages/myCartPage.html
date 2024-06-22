@@ -80,14 +80,37 @@
   </div>
   <div class="receipts-container">
     <h2 class="receipts-title">Receipts</h2>
-    <form id="new-cart-form" class="new-cart-form">
+    <form id="new-cart-form-receipts" class="new-cart-form">
+      <input type="text" id="new-cart-name-receipts" placeholder="Enter new cart name" required />
+      <button type="submit">Add Cart</button>
+    </form>
+    <div class="receipt-list" id="receipt-list-receipts">
+      <!-- Receipts will be populated dynamically -->
+    </div>
+  </div>
+  <div class="receipts-container">
+    <h2 class="receipts-title">Group's Receipts</h2>
+    <form id="new-group-cart-form" class="new-cart-form">
       <input type="text" id="new-cart-name" placeholder="Enter new cart name" required />
+      <input type="text" id="new-group-id" placeholder="Enter new cart id" required />
       <button type="submit">Add Cart</button>
     </form>
     <div class="receipt-list" id="receipt-list">
       <!-- Receipts will be populated dynamically -->
     </div>
   </div>
+  
+  <div class="receipts-container">
+    <h2 class="receipts-title">Join Group Receipts</h2>
+    <form id="join-group-receipts-form" class="new-cart-form">
+      <input type="text" id="join-group-id" placeholder="Enter group id" required />
+      <button type="submit">Join Group Receipts</button>
+    </form>
+    <div class="receipt-list" id="joined-receipt-list">
+      <!-- Joined receipts will be populated dynamically -->
+    </div>
+  </div>
+  
   <h2 id="items-title">Items</h2>
   <div id="items-list-container" class="scrollable-container">
     <!-- Ingredients will be populated dynamically -->
@@ -98,6 +121,5 @@
   </div>
   <img src="/frontend/images/png/pasta-cart.png" alt="pasta" class="pasta-image-cart" />
   <script src="/utils/myCart.js"></script>
-  
 </body>
 </html>
