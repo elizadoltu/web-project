@@ -3,8 +3,8 @@ const db = new sqlite3.Database('server/data/database.db');
 const barcodesData = require('./json/barcodes.json');
 
 db.run('DROP TABLE IF EXISTS cart', (err) => {
-   if (err) {
-      console.error('Error dropping cart table: ', err.message);
+    if (err) {
+        console.error('Error dropping cart table: ', err.message);
     } else {
         console.log('Cart table dropped successfully');
     }
@@ -26,7 +26,8 @@ const createUsersTable = `
         password TEXT NOT NULL,
         vegan BOOLEAN NOT NULL DEFAULT FALSE,
         vegetarian BOOLEAN NOT NULL DEFAULT FALSE,
-        banned BOOLEAN NOT NULL DEFAULT FALSE -- New column for banning users
+        banned BOOLEAN NOT NULL DEFAULT FALSE, -- New column for banning users
+        group_id TEXT -- New column for group ID
     )
 `;
 
@@ -45,7 +46,8 @@ const insertUsers = [
         password: 'password1',
         vegan: false,
         vegetarian: true,
-        banned: false
+        banned: false,
+        group_id: '1234'
     },
     {
         username: 'user2',
@@ -53,7 +55,8 @@ const insertUsers = [
         password: 'password2',
         vegan: true,
         vegetarian: false,
-        banned: false
+        banned: false,
+        group_id: '5678'
     },
     {
         username: 'user3',
@@ -61,7 +64,8 @@ const insertUsers = [
         password: 'password3',
         vegan: false,
         vegetarian: false,
-        banned: false
+        banned: false,
+        group_id: '9101'
     }
 ];
 
@@ -83,9 +87,9 @@ db.serialize(() => {
     });
 
     insertUsers.forEach(user => {
-        const { username, email, password, vegan, vegetarian } = user;
-        const sql = `INSERT INTO users (username, email, password, vegan, vegetarian) VALUES (?, ?, ?, ?, ?)`;
-        db.run(sql, [username, email, password, vegan, vegetarian], (err) => {
+        const { username, email, password, vegan, vegetarian, banned, group_id } = user;
+        const sql = `INSERT INTO users (username, email, password, vegan, vegetarian, banned, group_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        db.run(sql, [username, email, password, vegan, vegetarian, banned, group_id], (err) => {
             if (err) {
                 console.error('Error inserting user:', err.message);
             } else {
@@ -94,7 +98,6 @@ db.serialize(() => {
         });
     });
 
-
     db.run('DROP TABLE IF EXISTS barcodes', (err) => {
         if (err) {
             console.error('Error dropping barcodes table:', err.message);
@@ -102,7 +105,6 @@ db.serialize(() => {
             console.log('Barcodes table dropped successfully');
         }
     });
-
 
     db.close((err) => {
         if (err) {

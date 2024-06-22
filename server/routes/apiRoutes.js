@@ -11,6 +11,7 @@ const banUser = require('../apis/banUser');
 const unbanUser = require('../apis/unbanUser'); 
 const generateCSV = require('../apis/generateCSV');
 const generatePDF = require('../apis/generatePDF');
+const joinGroup = require('../apis/joinGroup');
 
 const apiRoutes = {
     "/api/products": (req, res) => {
@@ -117,6 +118,14 @@ const apiRoutes = {
     '/api/generatePDF': (req, res) => {
         if (req.method === 'GET') {
             generatePDF(req, res);
+        } else {
+            res.writeHead(405, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        }
+    },
+    '/api/joinGroup': (req, res) => { 
+        if (req.method === 'POST') {
+            joinGroup(req, res);
         } else {
             res.writeHead(405, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Method Not Allowed' }));
