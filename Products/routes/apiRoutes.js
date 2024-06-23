@@ -302,7 +302,7 @@ const apiRoutes = {
             );
           } else {
             // Handle single ingredient case
-            if (!ingredients || typeof ingredients !== "object") {
+            if (!ingredients || typeof ingredients !== "string") {
               res.writeHead(400, { "Content-Type": "application/json" });
               res.end(
                 JSON.stringify({
@@ -367,7 +367,7 @@ const apiRoutes = {
             );
           } else {
             // Handle single ingredient case
-            if (!ingredients || typeof ingredients !== "object") {
+            if (!ingredients || typeof ingredients !== "string") {
               res.writeHead(400, { "Content-Type": "application/json" });
               res.end(
                 JSON.stringify({
