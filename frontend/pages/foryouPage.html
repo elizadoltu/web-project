@@ -89,6 +89,13 @@
         </div>
       </div>
     </div>
+    <h3 id="products-to-try">Products to try out 🛒</h3>
+    <div id="carousel-container-products">
+      <!-- Carousel Items -->
+      <div class="carousel-panel" id="products-carousel">
+        <!-- Product items will be dynamically inserted here -->
+      </div>
+    </div>
     
     <div id="icon-menu">
       <span class="material-symbols-outlined" id="icon-home">home</span>
@@ -107,6 +114,24 @@
         window.location.href = `/frontend/pages/recipePage.html?name=${encodeURIComponent(recipeName)}`;
       });
     });
+
+ 
+    fetch('http://localhost:3002/api/products')
+  .then(response => response.json())
+  .then(products => {
+    const productsCarousel = document.getElementById('products-carousel');
+    products.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.classList.add('carousel-item');
+      productItem.innerHTML = `
+        <img src="./frontend/images/jpg/${encodeURIComponent(product.productName)}.jpg" alt="${product.productName}" />
+        <h3>${product.productName}</h3>
+      `;
+      productsCarousel.appendChild(productItem);
+    });
+  })
+  .catch(error => console.error('Error fetching products:', error));
+
   </script>
 </body>
 </html>

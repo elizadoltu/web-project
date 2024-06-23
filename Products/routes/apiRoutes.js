@@ -10,6 +10,7 @@ const getGroupReceipts = require('../apis/getGroupReceipts');
 const addToGroupCart = require('../apis/addToGroupCart');
 const deleteIndividualsCart = require("../apis/deleteIndividualsCart");
 const deleteCart = require("../apis/deleteCart");
+const getProducts = require('../apis/getProducts');
 
 const apiRoutes = {
   "/api/deleteCart": (req, res) => {
@@ -117,6 +118,7 @@ const apiRoutes = {
         res.end(JSON.stringify({ error: error.message }));
       });
   },
+
   "/api/joinGroupReceipts": (req, res) => {
     if (req.method === "POST") {
       let body = "";
@@ -447,7 +449,23 @@ const apiRoutes = {
             res.writeHead(405, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ error: "Method Not Allowed" }));
         }
+    },
+    "/api/products": (req, res) => {
+    if (req.method === "GET") {
+      getProducts()
+        .then((products) => {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify(products));
+        })
+        .catch((error) => {
+          res.writeHead(500, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Failed to fetch products" }));
+        });
+    } else {
+      res.writeHead(405, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Method Not Allowed" }));
     }
+  }
 };
 
 function handleApiRoutes(req, res) {
