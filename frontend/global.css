@@ -1,9 +1,9 @@
 body {
     background-image: url('../frontend/images/png/background-image.png');
-    height: 100vh;
+    height: auto;
     width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: repeat;
+    background-size:800vh;
     overflow: hidden;
     box-sizing: border-box;
 }
