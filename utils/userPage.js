@@ -45,8 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Delete the rememberedEmail cookie
-    deleteCookie('rememberedEmail');
-    deleteCookie('rememberMe');
+    sessionStorage.clear();
+
+
 
     // Redirect to index.html
     window.location.href = '/index.html';
