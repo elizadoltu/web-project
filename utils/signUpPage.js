@@ -33,10 +33,7 @@ document.getElementById('form-sign-up').addEventListener('submit', function(even
         body: JSON.stringify(userData)
     }).then(response => {
         if (response.ok) {
-            alert('Registration successful');
-            // Delete existing rememberedEmail cookie before setting it
-            deleteCookie('rememberedEmail');
-            // Set username in a cookie
+            sessionStorage.setItem('rememberedEmail', email);
             setCookie('rememberedEmail', email, 15);
             setCookie('username', username, 1); // Cookie expires in 1 day
             window.location.href = '/frontend/pages/configUserPage.html';

@@ -19,7 +19,7 @@ function setCookie(name, value, days) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const email = getCookie('rememberedEmail');
+    const email = sessionStorage.getItem('rememberedEmail');
     if (email) {
         fetch(`/api/getUserAllergies?email=${encodeURIComponent(email)}`, {
             method: 'GET',
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById('update-button').addEventListener('click', function() {
-    const email = getCookie('rememberedEmail'); // cookie created when logging in or when creating account
+    const email = sessionStorage.getItem('rememberedEmail');
     const newUsername = document.getElementById('new-username').value;
     const newPassword = document.getElementById('new-password').value;
 
@@ -74,7 +74,7 @@ document.getElementById('update-button').addEventListener('click', function() {
 
 // Dietary Preference Script
 function updateDietaryPreference(preference) {
-    const email = getCookie('rememberedEmail');
+    const email = sessionStorage.getItem('rememberedEmail');
 
     fetch('/api/updateDietaryPreference', {
         method: 'POST',
@@ -105,7 +105,7 @@ document.querySelector('.vegan-button').addEventListener('click', function() {
 document.getElementById('join-group-button').addEventListener('click', function() {
     const groupId = document.getElementById('group-id').value;
     if (groupId.length === 4 && !isNaN(groupId)) {
-        const email = getCookie('rememberedEmail');
+        const email = sessionStorage.getItem('rememberedEmail');
         fetch('/api/joinGroup', {
             method: 'POST',
             headers: {
@@ -129,11 +129,11 @@ document.getElementById('join-group-button').addEventListener('click', function(
 
 // Download Statistics
 document.getElementById('download-csv').addEventListener('click', function() {
-    const email = getCookie('rememberedEmail');
+    const email = sessionStorage.getItem('rememberedEmail');
     window.location.href = `/api/generateCSV?email=${encodeURIComponent(email)}`;
 });
 
 document.getElementById('download-pdf').addEventListener('click', function() {
-    const email = getCookie('rememberedEmail');
+    const email = sessionStorage.getItem('rememberedEmail');
     window.location.href = `/api/generatePDF?email=${encodeURIComponent(email)}`;
 });
