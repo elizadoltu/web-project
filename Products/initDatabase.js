@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 const path = require('path');
@@ -110,4 +108,3 @@ db.serialize(() => {
         console.log('Database connection closed');
     });
 });
->>>>>>> 55f23a2859a6798f5123cd8713002057acb71b4d
