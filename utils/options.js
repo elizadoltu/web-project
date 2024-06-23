@@ -101,31 +101,7 @@ document.querySelector('.vegan-button').addEventListener('click', function() {
     updateDietaryPreference('vegan');
 });
 
-// Join Group Script
-document.getElementById('join-group-button').addEventListener('click', function() {
-    const groupId = document.getElementById('group-id').value;
-    if (groupId.length === 4 && !isNaN(groupId)) {
-        const email = sessionStorage.getItem('rememberedEmail');
-        fetch('/api/joinGroup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, groupId })
-        }).then(response => {
-            if (response.ok) {
-                setCookie('groupID', groupId, 1); // Set groupID cookie for 1 day
-                alert('Joined group successfully');
-            } else {
-                response.text().then(text => alert('Error: ' + text));
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-        });
-    } else {
-        alert('Please enter a valid 4-digit group ID');
-    }
-});
+
 
 // Download Statistics
 document.getElementById('download-csv').addEventListener('click', function() {
