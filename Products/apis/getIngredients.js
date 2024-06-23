@@ -9,7 +9,7 @@ function getIngredients(cartName) {
             }
         });
 
-        db.all('SELECT ingredient, quantity FROM cart WHERE name = ?', [cartName], (err, rows) => {
+        db.all('SELECT ingredient, quantity FROM cart WHERE name = ? AND ingredient IS NOT NULL', [cartName], (err, rows) => {
             if (err) {
                 db.close((closeErr) => {
                     if (closeErr) {
