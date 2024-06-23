@@ -87,6 +87,13 @@
     <div class="receipt-list" id="individual-receipt-list">
       <!-- Individual Receipts will be populated dynamically -->
     </div>
+    <!-- Form for deleting individual cart -->
+    <form id="delete-individual-cart-form" class="new-cart-form">
+      <input type="text" id="delete-individual-cart-name" placeholder="Enter cart name to delete" required />
+      <input type="email" id="delete-individual-cart-email" placeholder="Enter email" required />
+      <button type="submit">Delete Cart</button>
+    </form>
+    
   </div>
   <div class="receipts-container">
     <h2 class="receipts-title">Group's Receipts</h2>
@@ -98,6 +105,14 @@
     <div class="receipt-list" id="group-receipt-list">
       <!-- Group Receipts will be populated dynamically -->
     </div>
+    <!-- Form for deleting group cart -->
+    <form id="delete-group-cart-form" class="new-cart-form">
+      <input type="text" id="delete-group-cart-name" placeholder="Enter cart name to delete" required />
+      <input type="text" id="delete-group-cart-id" placeholder="Enter group id" required />
+      <input type="text" id="delete-group-cart-email" placeholder="Enter email" required />
+      <button type="submit">Delete Cart</button>
+    </form>
+    
   </div>
   
   <div class="receipts-container">

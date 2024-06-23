@@ -8,8 +8,94 @@ const joinGroupCart = require("../apis/joinGroupCart");
 const searchForRecipe = require('../apis/searchForRecipe');
 const getGroupReceipts = require('../apis/getGroupReceipts');
 const addToGroupCart = require('../apis/addToGroupCart');
+const deleteIndividualsCart = require("../apis/deleteIndividualsCart");
+const deleteCart = require("../apis/deleteCart");
 
 const apiRoutes = {
+  "/api/deleteCart": (req, res) => {
+    if (req.method === "DELETE") {
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+
+      req.on("end", () => {
+        try {
+          const { cartName, email, groupId } = JSON.parse(body);
+
+          if (!cartName || typeof cartName !== "string" || !email || typeof email !== "string") {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                error: "cartName and email are required and must be strings",
+              })
+            );
+            return;
+          }
+
+          deleteCart(cartName, email, groupId)
+            .then((result) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(result));
+            })
+            .catch((error) => {
+              console.error("Error deleting individual cart:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Failed to delete individual cart" }));
+            });
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid JSON" }));
+        }
+      });
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+    }
+  },
+  "/api/deleteIndividualsCart": (req, res) => {
+    if (req.method === "DELETE") {
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+
+      req.on("end", () => {
+        try {
+          const { cartName, email } = JSON.parse(body);
+
+          if (!cartName || typeof cartName !== "string" || !email || typeof email !== "string") {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                error: "cartName and email are required and must be strings",
+              })
+            );
+            return;
+          }
+
+          deleteIndividualsCart(cartName, email)
+            .then((result) => {
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(result));
+            })
+            .catch((error) => {
+              console.error("Error deleting individual cart:", error);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Failed to delete individual cart" }));
+            });
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid JSON" }));
+        }
+      });
+    } else {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Not Found" }));
+    }
+  },
   "/api/recipe": (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const params = new URLSearchParams(url.search);

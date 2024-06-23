@@ -37,7 +37,93 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("join-group-id").value = "";
     }
   });
+
+  document.getElementById("delete-individual-cart-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const cartName = document.getElementById("delete-individual-cart-name").value.trim();
+    const email = document.getElementById("delete-individual-cart-email").value.trim();
+
+    if (cartName && email) {
+      try {
+        await deleteIndividualCart(cartName, email);
+        console.log('Individual cart deleted successfully');
+        // Optionally fetch updated data or perform other actions
+        document.getElementById("delete-individual-cart-name").value = "";
+        document.getElementById("delete-individual-cart-email").value = "";
+        fetchAvailableReceipts(email);
+      } catch (error) {
+        console.error('Failed to delete individual cart:', error.message);
+      }
+    } else {
+      console.error('Cart name and email are required');
+    }
+  });
+
+  document.getElementById("delete-group-cart-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const cartName = document.getElementById("delete-group-cart-name").value.trim();
+    const groupId = document.getElementById("delete-group-cart-id").value.trim(); // Corrected ID field
+    const email = document.getElementById("delete-group-cart-email").value.trim();
+
+    if (cartName && groupId && email) {
+      try {
+        await deleteGroupCart(cartName, email, groupId); 
+        console.log('Group cart deleted successfully');
+        fetchGroupReceipts(email);
+        document.getElementById("delete-group-cart-name").value = "";
+        document.getElementById("delete-group-cart-id").value = "";
+        document.getElementById("delete-group-cart-email").value = "";
+      } catch (error) {
+        console.error('Failed to delete group cart:', error.message);
+      }
+    } else {
+      console.error('Cart name, group ID, and email are required');
+    }
+  });
 });
+
+async function deleteIndividualCart(cartName, email) {
+  try {
+    const response = await fetch('http://localhost:3002/api/deleteIndividualsCart', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cartName, email }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to delete individual cart');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting individual cart:', error.message);
+    throw error; 
+  }
+}
+
+
+async function deleteGroupCart(cartName, email, groupId) {
+  try {
+    const response = await fetch('http://localhost:3002/api/deleteCart', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cartName, email, groupId }),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to delete group cart');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting group cart:', error.message);
+    throw error;
+  }
+}
 
 function fetchGroupReceipts(email) {
   fetch("http://localhost:3002/api/groupReceipts", {
