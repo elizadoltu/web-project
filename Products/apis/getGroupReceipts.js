@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function getIngredients(cartName) {
+function getGroupReceipts(email) {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database('./data/database.db', (err) => {
             if (err) {
@@ -9,7 +9,7 @@ function getIngredients(cartName) {
             }
         });
 
-        db.all('SELECT ingredient, quantity FROM cart WHERE name = ?', [cartName], (err, rows) => {
+        db.all('SELECT DISTINCT name FROM cart WHERE email = ? AND groupId IS NOT NULL', [email], (err, rows) => {
             if (err) {
                 db.close((closeErr) => {
                     if (closeErr) {
@@ -20,18 +20,15 @@ function getIngredients(cartName) {
                 return;
             }
 
-            const ingredients = rows.map(row => ({
-                ingredient: row.ingredient,
-                quantity: row.quantity
-            }));
+            const receipts = rows.map(row => row.name);
             db.close((closeErr) => {
                 if (closeErr) {
                     console.error("Error closing database:", closeErr);
                 }
-                resolve(ingredients);
+                resolve(receipts);
             });
         });
     });
 }
 
-module.exports = getIngredients;
+module.exports = getGroupReceipts;

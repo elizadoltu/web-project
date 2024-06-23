@@ -9,7 +9,7 @@ function getReceipts(email) {
             }
         });
 
-        db.all('SELECT DISTINCT name FROM cart WHERE email = ?', [email], (err, rows) => {
+        db.all('SELECT DISTINCT name FROM cart WHERE email = ? AND groupId IS NULL', [email], (err, rows) => {
             if (err) {
                 db.close((closeErr) => {
                     if (closeErr) {

@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupId = getCookie('groupID');
 
   fetchAvailableReceipts(email);
+  fetchGroupReceipts(email);
 
   document.getElementById("new-cart-form-receipts").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -38,56 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function joinGroupReceipts(groupId, email) {
-  fetch("http://localhost:3002/api/joinGroupReceipts", {
+function fetchGroupReceipts(email) {
+  fetch("http://localhost:3002/api/groupReceipts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ groupId, email }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Joined group receipts successfully:", data);
-      // Log the entire data object to understand its structure
-      console.log("Response data:", data);
-
-      // Check if data.receipts is defined and is an array
-      if (Array.isArray(data.receipts)) {
-        updateJoinedReceiptList(data.receipts, email);
-      } else {
-        console.error("No receipts found in the response:", data);
-      }
-      
-      fetchAvailableReceipts(email);
-    })
-    .catch(error => {
-      console.error("Error joining group receipts:", error);
-    });
-}
-
-function updateJoinedReceiptList(receipts, email) {
-  const joinedReceiptList = document.getElementById("joined-receipt-list");
-  joinedReceiptList.innerHTML = "";
-
-  receipts.forEach(receipt => {
-    const receiptButton = document.createElement("button");
-    receiptButton.classList.add("receipt-item");
-    receiptButton.textContent = receipt;
-    receiptButton.addEventListener("click", () => {
-      displayReceiptDetails(receipt, email);
-    });
-    joinedReceiptList.appendChild(receiptButton);
-  });
-}
-
-function addNewGroupCart(cartName, groupId, email) {
-  fetch("http://localhost:3002/api/addGroupCart", {
-    method: "PUT",
-    headers: {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({ cartName: cartName, groupId: groupId, email: email })
+    body: JSON.stringify({ email: email }),
   })
   .then((response) => {
     if (!response.ok) {
@@ -96,55 +54,29 @@ function addNewGroupCart(cartName, groupId, email) {
     return response.json();
   })
   .then((data) => {
-    console.log("Cart added successfully:", data);
-    fetchAvailableReceipts(email);
+    const groupReceiptList = document.getElementById("group-receipt-list");
+    groupReceiptList.innerHTML = "";
+
+    data.receipts.forEach((receipt) => {
+      const receiptButton = document.createElement("button");
+      receiptButton.classList.add("receipt-item");
+      receiptButton.textContent = receipt;
+      receiptButton.addEventListener("click", () => displayReceiptDetails(receipt));
+      groupReceiptList.appendChild(receiptButton);
+    });
   })
   .catch((error) => {
-    console.error("Error adding new cart:", error);
+    console.error("Error fetching group receipts:", error);
   });
 }
 
-function getCookie(name) {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
-
-function addNewCart(cartName, email) {
-  fetch("http://localhost:3002/api/addReceipt", {
-    method: "PUT",  
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ cartName: cartName, email: email })  
-  })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log("Cart added successfully:", data);
-    fetchAvailableReceipts(email);
-  })
-  .catch((error) => {
-    console.error("Error adding new cart:", error);
-  });
-}
-
-function fetchAvailableReceipts(email, ingredientList) {
+function fetchAvailableReceipts(email) {
   fetch("http://localhost:3002/api/receipts", {
     method: "POST",
     headers: {
       "Content-Type" : "application/json",
     },
-    body: JSON.stringify({ email: email, ingredients: ingredientList }),
+    body: JSON.stringify({ email: email }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -153,15 +85,16 @@ function fetchAvailableReceipts(email, ingredientList) {
       return response.json();
     })
     .then((data) => {
-      const receiptList = document.getElementById("receipt-list");
-      receiptList.innerHTML = "";
+      const individualReceiptList = document.getElementById("individual-receipt-list");
+      individualReceiptList.innerHTML = "";
 
       data.receipts.forEach((receipt) => {
         const receiptButton = document.createElement("button");
         receiptButton.classList.add("receipt-item");
         receiptButton.textContent = receipt;
         receiptButton.addEventListener("click", () => displayReceiptDetails(receipt, email));
-        receiptList.appendChild(receiptButton);
+        individualReceiptList.appendChild(receiptButton);
+        
       });
     })
     .catch((error) => {
@@ -169,8 +102,8 @@ function fetchAvailableReceipts(email, ingredientList) {
     });
 }
 
-function displayReceiptDetails(receiptId, email) {
-  fetch(`http://localhost:3002/api/getIngredients?name=${encodeURIComponent(receiptId)}&email=${encodeURIComponent(email)}`)
+function displayReceiptDetails(receiptId) {
+  fetch(`http://localhost:3002/api/getIngredients?name=${encodeURIComponent(receiptId)}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -210,4 +143,99 @@ function displayReceiptDetails(receiptId, email) {
     .catch((error) => {
       console.error("Error fetching receipt details:", error);
     });
+}
+
+function addNewGroupCart(cartName, groupId, email) {
+  fetch("http://localhost:3002/api/addGroupCart", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cartName: cartName, groupId: groupId, email: email })
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Cart added successfully:", data);
+    fetchGroupReceipts(email);
+  })
+  .catch((error) => {
+    console.error("Error adding new cart:", error);
+  });
+}
+
+function addNewCart(cartName, email) {
+  fetch("http://localhost:3002/api/addReceipt", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cartName: cartName, email: email })
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Cart added successfully:", data);
+    fetchAvailableReceipts(email);
+  })
+  .catch((error) => {
+    console.error("Error adding new cart:", error);
+  });
+}
+
+function joinGroupReceipts(groupId, email) {
+  fetch("http://localhost:3002/api/joinGroupReceipts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ groupId, email }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Joined group receipts successfully:", data);
+    if (Array.isArray(data.receipts)) {
+      updateJoinedReceiptList(data.receipts, email);
+    } else {
+      console.error("No receipts found in the response:", data);
+    }
+    fetchAvailableReceipts(email);
+  })
+  .catch(error => {
+    console.error("Error joining group receipts:", error);
+  });
+}
+
+function updateJoinedReceiptList(receipts, email) {
+  const joinedReceiptList = document.getElementById("joined-group-receipt-list");
+  joinedReceiptList.innerHTML = "";
+
+  receipts.forEach(receipt => {
+    const receiptButton = document.createElement("button");
+    receiptButton.classList.add("receipt-item");
+    receiptButton.textContent = receipt;
+    receiptButton.addEventListener("click", () => {
+      displayReceiptDetails(receipt);
+    });
+    joinedReceiptList.appendChild(receiptButton);
+  });
+}
+
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
 }
