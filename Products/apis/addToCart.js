@@ -4,7 +4,7 @@ function addToCart(ingredient, cartName, email) {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database('./data/database.db');
 
-        db.get('SELECT * FROM cart WHERE name = ? AND ingredient = ? AND email = ?', [cartName, ingredient, email], (err, row) => {
+        db.get('SELECT * FROM cart WHERE name = ? AND ingredient = ? AND email = ? AND groupId IS NULL', [cartName, ingredient, email], (err, row) => {
             if (err) {
                 reject(err);
                 db.close();
@@ -13,7 +13,7 @@ function addToCart(ingredient, cartName, email) {
 
             if (row) {
                 const newQuantity = row.quantity + 1; 
-                db.run('UPDATE cart SET quantity = ? WHERE name = ? AND ingredient = ? AND email = ?', [newQuantity, cartName, ingredient, email], (err) => {
+                db.run('UPDATE cart SET quantity = ? WHERE name = ? AND ingredient = ? AND email = ? ', [newQuantity, cartName, ingredient, email], (err) => {
                     if (err) {
                         reject(err);
                     } else {
