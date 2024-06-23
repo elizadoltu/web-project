@@ -115,23 +115,28 @@
       });
     });
 
- 
-    fetch('http://localhost:3002/api/products')
-  .then(response => response.json())
-  .then(products => {
-    const productsCarousel = document.getElementById('products-carousel');
-    products.forEach(product => {
-      const productItem = document.createElement('div');
-      productItem.classList.add('carousel-item');
-      productItem.innerHTML = `
-        <img src="./frontend/images/jpg/${encodeURIComponent(product.productName)}.jpg" alt="${product.productName}" />
-        <h3>${product.productName}</h3>
-      `;
-      productsCarousel.appendChild(productItem);
+    document.getElementById('products-carousel').addEventListener('click', (event) => {
+      if (event.target.classList.contains('product-button')) {
+        const productName = event.target.getAttribute('product-name');
+        window.location.href = `/frontend/pages/productsPage.html?name=${encodeURIComponent(productName)}`;
+      }
     });
-  })
-  .catch(error => console.error('Error fetching products:', error));
 
+    fetch('http://localhost:3002/api/products')
+      .then(response => response.json())
+      .then(products => {
+        const productsCarousel = document.getElementById('products-carousel');
+        products.forEach(product => {
+          const productItem = document.createElement('div');
+          productItem.classList.add('carousel-item');
+          productItem.innerHTML = `
+            <img src="./frontend/images/jpg/${encodeURIComponent(product.productName)}.jpg" alt="${product.productName}" />
+            <button product-name="${product.productName}" class="product-button">${product.productName}</button>
+          `;
+          productsCarousel.appendChild(productItem);
+        });
+      })
+      .catch(error => console.error('Error fetching products:', error));
   </script>
 </body>
 </html>

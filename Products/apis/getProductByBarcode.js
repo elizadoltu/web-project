@@ -2,7 +2,7 @@ const https = require("https");
 
 function getProductByBarcode(barcode) {
     return new Promise((resolve, reject) => {
-        const url = `https://world.openfoodfacts.net/api/v2/product/${barcode}?fields=product_name`;
+        const url = `https://world.openfoodfacts.net/api/v2/product/${barcode}?fields=product_name,product_quantity,product_quantity_unit,code,countries,nutrient_levels`;
 
         https.get(url, (res) => {
             let data = '';

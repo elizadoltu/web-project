@@ -11,8 +11,31 @@ const addToGroupCart = require('../apis/addToGroupCart');
 const deleteIndividualsCart = require("../apis/deleteIndividualsCart");
 const deleteCart = require("../apis/deleteCart");
 const getProducts = require('../apis/getProducts');
+const getBarcode = require("../apis/getBarcode");
+const getProductByBarcode = require("../apis/getProductByBarcode");
 
 const apiRoutes = {
+  "/api/getProductDetails" : (req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const params = new URLSearchParams(url.search);
+    const barcode = params.get("barcode"); 
+
+    if (!barcode) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Barcode parameter is required" }));
+      return;
+    }
+
+    getProductByBarcode(barcode)
+      .then((details) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(details));
+      })
+      .catch((error) => {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: error.message }));
+      });
+  },
   "/api/deleteCart": (req, res) => {
     if (req.method === "DELETE") {
       let body = "";
@@ -118,7 +141,26 @@ const apiRoutes = {
         res.end(JSON.stringify({ error: error.message }));
       });
   },
+  "/api/getBarcode" : (req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const params = new URLSearchParams(url.search);
+    const productName = params.get("name");
 
+    if (!productName) {
+      res.writeHead(400, { "Content-Type" : "application/json"});
+      res.end(JSON.stringify({ error: "Product name parameter is required" }));
+      return;
+    }
+    getBarcode(productName)
+    .then((barcode) => {
+      res.writeHead(200, { "Content-Type" : "application/json" });
+      res.end(JSON.stringify(barcode));
+    })
+    .catch((error) => {
+      res.writeHead(500, { "Content-Type" : "application/json" });
+      res.end(JSON.stringify({ error: error.message }));
+    });
+  },
   "/api/joinGroupReceipts": (req, res) => {
     if (req.method === "POST") {
       let body = "";
