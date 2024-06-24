@@ -25,6 +25,7 @@ const createPreferenceTable = `
         barcode INTEGER UNIQUE,
         email TEXT,
         recipeName TEXT,
+        productName TEXT,
         numberOfSaving INTEGER
     )
 `;

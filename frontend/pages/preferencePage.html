@@ -10,28 +10,43 @@
   <title>Flavorfolio</title>
 </head>
 <body id="body-preference-page">
-  <section class="preference-body-container">
+  <header class="header">
     <div class="app-name-logo-container">
       <div id="arrow-nav-back-preference">&#8592;</div>
       <div id="preference-title">Saved items</div>
       <span id="official-logo" class="material-symbols-outlined">soup_kitchen</span>
     </div>
-    <div id="horizontal-line"></div>
-    <div class="carousel-recipes">
+  </header>
+  <hr id="horizontal-line">
+  <main class="main-content">
+    <section class="carousel-recipes">
       <div id="preference-container" class="recipe-list">
         <!-- Carousel Items will be dynamically added here -->
       </div>
-    </div>
-    <script src="/scripts/navBack.js"></script>
-    <script src="/utils/scriptSaveRecipe.js"></script>
-    <script>
+      <div id="preference-products-container" class="products-list">
+        <!-- Products will be dynamically added here -->
+      </div>
+    </section>
+  </main>
+  <script src="/scripts/navBack.js"></script>
+  <script src="/utils/scriptSaveRecipe.js"></script>
+  <script src="/utils/saveIngredient.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll('.recipe-button').forEach(button => {
         button.addEventListener('click', () => {
           const recipeName = button.getAttribute('data-recipe');
           window.location.href = `/frontend/pages/recipePage.html?name=${encodeURIComponent(recipeName)}`;
         });
       });
-    </script>
-  </section>
+
+      document.querySelectorAll('.product-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const productName = button.getAttribute('product-name');
+          window.location.href = `/frontend/pages/products.html?name=${encodeURIComponent(productName)}`;
+        });
+      });
+    });
+  </script>
 </body>
 </html>
