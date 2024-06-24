@@ -1,15 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
 
-function fetchSavedRecipes(email) {
+function fetchSavedIngredients(email) {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database('./data/database.db', (err) => {
+        const db = new sqlite3.Database("./data/database.db", (err) => {
             if (err) {
                 reject(err);
-                retrurn;
+                return;
             }
         });
 
-        db.all('SELECT recipeName, numberOfSaving FROM userPreference WHERE email = ? AND recipeName IS NOT NULL', [email], (err, rows) => {
+        db.all('SELECT productName FROM userPreference WHERE email = ?', [email], (err, rows) => {
             if (err) {
                 db.close((closeErr) => {
                     if (closeErr) {
@@ -20,18 +20,15 @@ function fetchSavedRecipes(email) {
                 return;
             }
 
-            const recipesName = rows.map(row => ({
-                recipeName: row.recipeName,
-                numberOfSaving: row.numberOfSaving
-            }));
+            const productsName = rows.map(row => row.productName);
             db.close((closeErr) => {
                 if (closeErr) {
                     console.error("Error closing database:", closeErr);
                 }
-                resolve(recipesName);
+                resolve(productsName);
             });
         });
     });
 }
 
-module.exports = fetchSavedRecipes;
+module.exports = fetchSavedIngredients;

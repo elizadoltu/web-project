@@ -94,7 +94,7 @@
     color: var(--font-color);
     font-size: 3.5em;
     position: absolute;
-    top: 100%;
+    top: 90%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -132,7 +132,7 @@
     overflow: hidden; 
     width: 80%; 
     margin: 0 auto; 
-    top: 140%; 
+    top: 110%; 
     left: 50%;
     transform: translate(-50%);
 }
@@ -149,7 +149,12 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
     width: 100%;
+    margin-top: 80px;
     padding: 20px;
+}
+
+.products-container {
+    margin-top: 100px;
 }
 
 .carousel-item {
@@ -215,7 +220,7 @@
 section {
     position: relative;
     width: 100%;
-    height: 200vh; /* Increased height to accommodate both carousels */
+    height: 120vh; 
 }
 
 #for-you-body { 
