@@ -53,20 +53,18 @@
 }
 
 #paragraph-1 {
-    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 1.5em; 
     color: var(--font-color); 
     font-weight: 50;
     
-    
 }
 
 .about-section {
-    top: 50%; /* Adjust as needed */
+    top: 20%; /* Adjust as needed */
     left: 0; /* Set it to 0 to align with the left edge of its containing block */
-    transform: translateY(-130%); /* Use transform to center vertically */
     position: absolute;
-    width: 100%;
+    width: 60%;
 }
 
 #horizontal-line-2 {
@@ -92,7 +90,7 @@
 }
 
 .contact-section p {
-    font-family: 'Truecolor Personal Use Regular', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 1.2em;
     color: var(--font-color);
     font-weight: 50;
